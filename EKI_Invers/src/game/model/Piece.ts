@@ -1,4 +1,4 @@
-enum Piece {
+export const enum Piece {
     BORDER = "border",
     EMPTY = "empty",
     YELLOW = "yellow",
