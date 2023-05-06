@@ -1,36 +1,31 @@
 <template>
-    <h1>Inversi Spiel</h1>
     <div id="app">
-        <Board :boardData="boardData" @move="handleMove" />
+        <Header />
+        <Board />
+        <Stats />
     </div> 
 </template>
 
 <script lang="ts">
-    import Board from './components/Board.vue'
-    //import Statistics from './components/Stats.vue'
+    import { defineComponent } from 'vue'
+    import Header from './components/HeaderComponent.vue'
+    import Board from './components/BoardComponent.vue'
+    import Stats from './components/StatsComponent.vue'
 
-    export default {
+    export default defineComponent({
         name: 'Application',
         components: {
+            Header,
             Board,
+            Stats,
         },
-        data() {
-            return {
-                boardData: []
-            }
-        },
-        mounted() {
-            // Fetch initial board
-        },
-        methods: {
-            handleMove(move) {
-                // Handle Move from board component
-            }
-        }
-    }
+    });
 
 </script>
 
 <style scoped>
 
+* {
+    outline: dotted red;
+}
 </style>
