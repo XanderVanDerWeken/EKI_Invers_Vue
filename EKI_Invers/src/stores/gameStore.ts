@@ -18,6 +18,13 @@ export const useGameStore = defineStore('game', {
         pieces(): Array<Piece> {
             return this.game.getBoard();
         },
+        boardMatrix(): Array<Array<Piece>> {
+            const matrix: Array<Array<Piece>> = [];
+            for(let i = 0; i < 10; i++) {
+                matrix.push(this.game.getBoard().slice(i * 10, (i + 1) * 10));
+            }
+            return (matrix as Array<Array<Piece>>);
+        },
         currentPlayer(): Number {
             return this.game.getCurrentPlayer();
         },
@@ -32,5 +39,8 @@ export const useGameStore = defineStore('game', {
         resetBoard() {
             this.game.resetBoard();
         },
+        makeMove(rowIndex: number, colIndex: number) {
+            //TODO: Implement
+        }
     }
 });

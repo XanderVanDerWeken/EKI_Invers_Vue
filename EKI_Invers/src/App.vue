@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <Header />
-        <Board v-bind:pieces="game.pieces" />
+        <Board />
         <Stats 
             v-bind:player="(game.currentPlayer as number)" 
             v-bind:points-pl1="(game.scorePlayerOne as number)" 
