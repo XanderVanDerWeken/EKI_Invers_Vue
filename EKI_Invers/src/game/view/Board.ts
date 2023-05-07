@@ -1,3 +1,6 @@
+import { Piece } from '@/game/model/Piece';
+import type { Direction } from '@/game/model/Direction';
+
 export class Board {
     private pieces: Array<Piece>;
 

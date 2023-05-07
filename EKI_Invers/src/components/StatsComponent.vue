@@ -11,17 +11,10 @@
 
     export default defineComponent({
         name: "Stats",
-        /*data() {
-            return {
-                player: "",
-                pointsPL1: -1,
-                pointsPL2: -1
-            }
-        },*/
         props: {
           player: {
-            type: String,
-            default: ""
+            type: Number,
+            default: -1
           },
           pointsPl1: {
             type: Number,
@@ -39,9 +32,6 @@
             currentPoints: function() {
                 return this.pointsPl1 + " : " + this.pointsPl2;
             }
-        },
-        methods: {
-            
         }
     })
 </script>
