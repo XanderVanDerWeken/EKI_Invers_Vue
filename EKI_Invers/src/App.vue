@@ -2,7 +2,7 @@
     <div id="app">
         <Header />
         <Board />
-        <Stats />
+        <Stats player="" :points-pl1="-1" :points-pl2="-1" />
     </div> 
 </template>
 
@@ -14,6 +14,11 @@
 
     export default defineComponent({
         name: 'Application',
+        data() {
+            return {
+                
+            }
+        },
         components: {
             Header,
             Board,
