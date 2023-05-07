@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 import type { Piece } from '@/game/model/Piece';
+import type { Direction } from '@/game/model/Direction';
 import { Game } from '@/game/controller/Game';
 const gameObj = new Game();
 
@@ -39,7 +40,7 @@ export const useGameStore = defineStore('game', {
         resetBoard() {
             this.game.resetBoard();
         },
-        makeMove(rowIndex: number, colIndex: number) {
+        makeMove(position: number, direction: Direction) {
             //TODO: Implement
         }
     }

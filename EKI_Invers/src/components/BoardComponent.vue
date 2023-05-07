@@ -1,4 +1,5 @@
 <template>
+    <directionModal :show-modal="showModal" :modal-text="modalText" @direction-selected="handleDirectionSelected" />
     <table>
         <tbody>
             <tr v-for="(row, rowIndex ) in matrix" :key="rowIndex">
@@ -11,31 +12,50 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue'
+    import { defineComponent, ref } from 'vue'
+    import DirectionModal from '@/components/DirectionModal.vue'
     import { Piece } from '../game/model/Piece'
+    import type { Direction } from '@/game/model/Direction';
     import { useGameStore } from '@/stores/gameStore';
 
     export default defineComponent({
         name: "Board",
+        components: {
+            DirectionModal
+        },
+        data() {
+            return {
+                showModal: false,
+                modalText: '',
+                selectedRow: -1,
+                selectedCol: -1,
+            };
+        },
+        setup() {
+            const game = useGameStore();
+
+            return {
+                game,
+            }
+        },
         computed: {
             matrix() : Array<Array<Piece>> {   
                 return this.game.boardMatrix;
             }
         },
-        setup() {
-            const game = useGameStore();
-
-            function handleCellClick(rowIndex: number, colIndex: number): void {
-                game.makeMove(rowIndex, colIndex);
-            }
-
-            return {
-                game,
-
-                handleCellClick
-            }
-        },
         methods: {
+            handleCellClick(rowIndex: number, colIndex: number) {
+                this.selectedRow = rowIndex;
+                this.selectedCol = colIndex;
+                this.modalText = `Select direction for piece at row ${rowIndex}, column ${colIndex}:`
+
+                this.showModal = true;
+            },
+            handleDirectionSelected(direction: Direction) {
+                var pos = (this.selectedRow * 10) + this.selectedCol;
+                this.game.makeMove(pos, direction)
+                this.showModal = false;
+            },
             resolveClass(cell : Piece): String {
                 switch(cell) {
                     case Piece.RED:
