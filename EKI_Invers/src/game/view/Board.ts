@@ -1,9 +1,16 @@
-class Board {
+import { Piece } from '@/game/model/Piece';
+import type { Direction } from '@/game/model/Direction';
+
+export class Board {
     private pieces: Array<Piece>;
 
     constructor() {
         this.pieces = this.initializePieces();
     };
+
+    public getPieces(): Array<Piece> {
+        return this.pieces;
+    }
 
     public getValue(row: number, col: number ): Piece {
         //TODO: Implement
@@ -37,7 +44,7 @@ class Board {
     private initializePieces(): Array<Piece> {
         const pieces: Array<Piece> = [];
         for (let i = 0; i < 100; i++) {
-            pieces.push( Piece.EMPTY );
+            pieces.push( Piece.RED );
         }
         return pieces;
     };

@@ -1,36 +1,53 @@
 <template>
-    <h1>Inversi Spiel</h1>
     <div id="app">
-        <Board :boardData="boardData" @move="handleMove" />
+        <Header />
+        <div class="container">
+            <Board />
+            <Stats v-bind:stats="stats" />
+            <ControlPanel />
+        </div>
+        
     </div> 
 </template>
 
 <script lang="ts">
-    import Board from './components/Board.vue'
-    //import Statistics from './components/Stats.vue'
+    import { defineComponent } from 'vue'
+    import { useGameStore } from '@/stores/gameStore'
 
-    export default {
+    import Header from '@/components/HeaderComponent.vue'
+    import Board from '@/components/BoardComponent.vue'
+    import Stats from '@/components/StatsComponent.vue'
+    import ControlPanel from '@/components/ControlPanelComponent.vue'
+
+    export default defineComponent({
         name: 'Application',
         components: {
+            Header,
             Board,
+            Stats,
+            ControlPanel
         },
-        data() {
+        setup() {
+            const game = useGameStore();
+
+            const stats = {
+                currentPlayer : game.currentPlayer,
+                scorePlayerOne : game.scorePlayerOne,
+                scorePlayerTwo : game.scorePlayerTwo
+            }
+
             return {
-                boardData: []
-            }
+                game,
+                stats
+            };
         },
-        mounted() {
-            // Fetch initial board
-        },
-        methods: {
-            handleMove(move) {
-                // Handle Move from board component
-            }
-        }
-    }
+    });
 
 </script>
 
 <style scoped>
+* {
+    outline: dotted red;
+}
 
 </style>

@@ -1,6 +1,15 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import App from '@/App.vue'
 
-import './assets/main.css'
+import { Game } from '@/game/controller/Game';
 
-createApp(App).mount('#app')
+var game = new Game();
+
+const pinia = createPinia();
+const app = createApp(App);
+
+app.use(pinia);
+//app.config.globalProperties.$game = game;
+
+app.mount('#app');
