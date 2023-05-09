@@ -3,7 +3,7 @@
     <table>
         <tbody>
             <tr v-for="(row, rowIndex ) in matrix" :key="rowIndex">
-                <td v-for="(cell, colIndex) in row" :key="colIndex" 
+                <td v-for="(cell, colIndex) in row" :key="colIndex"
                     :class="resolveClass(cell)" v-on:click="handleCellClick(rowIndex, colIndex)"
                 />
             </tr>
@@ -66,8 +66,10 @@
                         return "yellow";
                     case Piece.YELLOW_DOT:
                         return "yellow_dot";
+                    case Piece.EMPTY:
+                        return "empty-cell"
                     default:
-                        return "";
+                        return "border";
                 }
             }
         }
@@ -85,6 +87,10 @@
 td {
     width: 50px;
     height: 50px;
+}
+
+.border {
+    display: none;
 }
 
 .empty-cell {
