@@ -1,13 +1,12 @@
 <template>
     <div id="app">
         <Header />
-        <Board />
-        <Stats 
-            v-bind:player="(game.currentPlayer as number)" 
-            v-bind:points-pl1="(game.scorePlayerOne as number)" 
-            v-bind:points-pl2="(game.scorePlayerTwo as number)" 
-        />
-        <ControlPanel />
+        <div class="container">
+            <Board />
+            <Stats v-bind:stats="stats" />
+            <ControlPanel />
+        </div>
+        
     </div> 
 </template>
 
@@ -31,8 +30,15 @@
         setup() {
             const game = useGameStore();
 
+            const stats = {
+                currentPlayer : game.currentPlayer,
+                scorePlayerOne : game.scorePlayerOne,
+                scorePlayerTwo : game.scorePlayerTwo
+            }
+
             return {
                 game,
+                stats
             };
         },
     });
@@ -40,8 +46,8 @@
 </script>
 
 <style scoped>
-
 * {
     outline: dotted red;
 }
+
 </style>
