@@ -1,4 +1,4 @@
-package de.fherfurt.core
+package de.fherfurt.invers.core
 
 enum class Direction {
     UP,

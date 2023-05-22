@@ -1,8 +1,8 @@
-package de.fherfurt.view
+package de.fherfurt.invers.view
 
-import de.fherfurt.core.Direction
-import de.fherfurt.core.Piece
-import de.fherfurt.model.Player
+import de.fherfurt.invers.core.Direction
+import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.Player
 import java.util.*
 
 class Board {
