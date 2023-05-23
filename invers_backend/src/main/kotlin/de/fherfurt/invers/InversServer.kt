@@ -34,9 +34,6 @@ fun Application.restApplicationModule() {
     }
 
     routing {
-        get("/") {
-            call.respond("Test Invers Server")
-        }
         playerRoutes()
         gameRoutes()
     }
