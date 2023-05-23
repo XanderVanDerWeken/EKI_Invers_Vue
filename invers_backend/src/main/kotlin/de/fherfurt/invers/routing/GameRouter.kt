@@ -11,17 +11,25 @@ object GameRouter {
 
     fun Route.gameRoutes() {
         route("/game") {
-            get("/play") {
+            post("/play") {
                 Game.playGame()
                 call.respond(HttpStatusCode.OK, "Game was started")
             }
-            get("/score") {
-                val result = Score(Game.scorePlayer1, Game.scorePlayer2)
+            post("/reset") {
+                Game.resetBoard()
+                call.respond(HttpStatusCode.OK, "Game war resetted")
+            }
+            get("/stats") {
+                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer())
                 call.respond(result)
+            }
+            get("/board") {
+                val board = Game.board().toList()
+                call.respond(HttpStatusCode.OK, board)
             }
         }
     }
 
     @Serializable
-    data class Score(val scorePlayer1: Int, val scorePlayer2: Int)
+    private data class Score(val scorePlayer1: Int, val scorePlayer2: Int, val activePlayer: Int)
 }
