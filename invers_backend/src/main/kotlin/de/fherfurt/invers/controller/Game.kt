@@ -1,12 +1,12 @@
-package de.fherfurt.controller
+package de.fherfurt.invers.controller
 
-import de.fherfurt.core.Piece
-import de.fherfurt.model.Player
-import de.fherfurt.model.UserPlayer
-import de.fherfurt.view.Board
+import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.Player
+import de.fherfurt.invers.model.UserPlayer
+import de.fherfurt.invers.view.Board
 import java.util.*
 
-class Game {
+object Game {
     private val player1: Player
     private val player2: Player
     private val activePlayer: Player

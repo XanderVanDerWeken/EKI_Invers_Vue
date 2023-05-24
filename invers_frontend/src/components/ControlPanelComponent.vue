@@ -1,20 +1,20 @@
 <template>
     <h2>Control Panel</h2>
-    <button v-on:click="resetBoard">Reset Game</button>
+    <button v-on:click="resetBoard()">Reset Game</button>
 </template>
 
 <script lang="ts">
     import { defineComponent} from 'vue'
-    import { useGameStore } from '@/stores/gameStore';
+    import { useApiStore } from '@/stores/apiStore';
 
     export default defineComponent({
         name: 'ControlPanel',
         setup() {
-            const game = useGameStore();
+            const apiStore = useApiStore();
 
             function resetBoard() {
                 alert("reset");
-                game.resetBoard();
+                apiStore.resetGame();
             }
 
             return {

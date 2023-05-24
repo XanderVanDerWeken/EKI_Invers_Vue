@@ -1,29 +1,44 @@
 <template>
     <div>
         <h2>Statistics</h2>
-        <p>{{ currentPlayer }}</p>
-        <p>{{ currentPoints }}</p>
+        <p>Player {{ activePlayer() }} turn</p>
+        <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }}</p>
     </div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue'
+    import {useApiStore} from "@/stores/apiStore";
 
     export default defineComponent({
         name: "Stats",
-        props: {
-          stats: {
-            type: Object,
-            default: {}
+        setup() {
+          const apiStore = useApiStore();
+
+          function scorePlayerOne(): number {
+            return apiStore.scorePlayerOne;
+          }
+          function scorePlayerTwo(): number {
+            return apiStore.scorePlayerTwo;
+          }
+          function activePlayer(): number {
+            return apiStore.activePlayer;
+          }
+
+          function updateStats() {
+            apiStore.fetchStats()
+          }
+
+          return {
+            scorePlayerOne,
+            scorePlayerTwo,
+            activePlayer,
+
+            updateStats
           }
         },
-        computed: {
-            currentPlayer: function() {
-                return "Player " + this.stats.currentPlayer + " turn";
-            },
-            currentPoints: function() {
-                return this.stats.scorePlayerOne + " : " + this.stats.scorePlayerTwo;
-            }
+        mounted() {
+          this.updateStats()
         }
     })
 </script>
