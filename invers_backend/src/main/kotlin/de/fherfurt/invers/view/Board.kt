@@ -20,6 +20,17 @@ class Board {
 
     }
 
+    /**
+     * Method to check if a cell is valid
+     */
+    fun isValid(row: Int, col: Int, player: Player): Boolean {
+        val index = rowAndColToIndex(row, col)
+        val neighborIndex = index + 1
+        return ( pieces[index] == Piece.EMPTY &&
+                (pieces[neighborIndex] == player.piece || pieces[neighborIndex] == player.dottedPiece)
+        )
+    }
+
     fun getPlayerScore(player: Player) : Int {
         return pieces.count { piece ->
             piece == player.piece || piece == player.dottedPiece
@@ -45,5 +56,9 @@ class Board {
             }
         }
         return pieces
+    }
+
+    private fun rowAndColToIndex(row: Int, col: Int): Int {
+        return row * 10 + col
     }
 }
