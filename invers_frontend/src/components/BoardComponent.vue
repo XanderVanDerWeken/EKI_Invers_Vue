@@ -1,77 +1,107 @@
 <template>
-    <directionModal :show-modal="showModal" :modal-text="modalText" @direction-selected="handleDirectionSelected" />
-    <table>
+  <div class="board">
+    <div id="headerTable">
+      <table>
+        <tr>
+          <td v-for="colIndex in 6" :key="colIndex">
+            <button v-on:click="shiftCol(colIndex, 'down')">Shift</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="leftTable">
+      <table>
+        <tr v-for="rowIndex in 6" :key="rowIndex">
+          <td>
+            <button v-on:click="shiftRow(rowIndex, 'right')">Shift</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="centerTable">
+      <table>
         <tbody>
-            <tr v-for="(row, rowIndex ) in matrix" :key="rowIndex">
-                <td v-for="(cell, colIndex) in row" :key="colIndex"
-                    :class="resolveClass(cell)" v-on:click="handleCellClick(rowIndex, colIndex)"
-                />
-            </tr>
+        <tr v-for="(row, rowIndex) in matrix" :key="rowIndex">
+          <td v-for="(cell, colIndex) in row" :key="colIndex"
+              :class="cell.toLowerCase()"
+          />
+        </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
+    <div id="rightTable">
+      <table>
+        <tr v-for="rowIndex in 6" :key="rowIndex">
+          <td>
+            <button v-on:click="shiftRow(rowIndex, 'left')">Shift</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="boardPart" id="footerTable">
+      <table>
+        <tr>
+          <td v-for="colIndex in 6" :key="colIndex">
+            <button v-on:click="shiftCol(colIndex, 'up')">Shift</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-    import { defineComponent, ref } from 'vue'
-    import DirectionModal from '@/components/DirectionModal.vue'
-    import { Piece } from '../game/model/Piece'
-    import type { Direction } from '@/game/model/Direction';
-    import { useGameStore } from '@/stores/gameStore';
+import { defineComponent } from 'vue'
+import type { Piece } from '@/game/model/Piece'
+import { useApiStore } from "@/stores/apiStore";
+import { Direction } from "@/game/model/Direction";
 
-    export default defineComponent({
+export default defineComponent({
         name: "Board",
-        components: {
-            DirectionModal
-        },
-        data() {
-            return {
-                showModal: false,
-                modalText: '',
-                selectedRow: -1,
-                selectedCol: -1,
-            };
-        },
         setup() {
-            const game = useGameStore();
+            const apiStore = useApiStore();
+
+            function updateBoard() {
+              apiStore.fetchBoard();
+            }
+
+            function shiftRow(row: number, direction: string) {
+              // Todo: Implement
+              if(direction === 'left') {
+
+              }
+              else {
+
+              }
+            }
+
+            function shiftCol(col: number, direction: string) {
+              // Todo: Implement
+              if(direction === 'up') {
+
+              }
+              else {
+
+              }
+            }
 
             return {
-                game,
+              //game,
+              apiStore,
+
+              updateBoard,
+              shiftRow,
+              shiftCol
             }
+        },
+        mounted() {
+          this.updateBoard()
         },
         computed: {
-            matrix() : Array<Array<Piece>> {   
-                return this.game.boardMatrix;
-            }
-        },
-        methods: {
-            handleCellClick(rowIndex: number, colIndex: number) {
-                this.selectedRow = rowIndex;
-                this.selectedCol = colIndex;
-                this.modalText = `Select direction for piece at row ${rowIndex}, column ${colIndex}:`
-
-                this.showModal = true;
-            },
-            handleDirectionSelected(direction: Direction) {
-                var pos = (this.selectedRow * 10) + this.selectedCol;
-                this.game.makeMove(pos, direction)
-                this.showModal = false;
-            },
-            resolveClass(cell : Piece): String {
-                switch(cell) {
-                    case Piece.RED:
-                        return "red";
-                    case Piece.RED_DOT:
-                        return "red_dot";
-                    case Piece.YELLOW:
-                        return "yellow";
-                    case Piece.YELLOW_DOT:
-                        return "yellow_dot";
-                    case Piece.EMPTY:
-                        return "empty-cell"
-                    default:
-                        return "border";
-                }
-            }
+          matrix() : Array<Array<Piece>> {
+            this.updateBoard();
+            return this.apiStore.boardMatrix;
+          }
         }
     });
 </script>
@@ -88,6 +118,33 @@ td {
     width: 50px;
     height: 50px;
 }
+
+.board {
+  display: grid;
+  grid-template-columns: 0.3fr 2.4fr 0.3fr;
+  grid-template-rows: 0.3fr 2.3fr 0.3fr;
+  gap: 2px 2px;
+  grid-auto-flow: row;
+  justify-content: center;
+  align-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-areas:
+    ". headerTable ."
+    "leftTable centerTable rightTable"
+    ". footerTable .";
+}
+
+#rightTable { grid-area: rightTable; }
+
+#centerTable { grid-area: centerTable; }
+
+#leftTable { grid-area: leftTable; }
+
+#headerTable { grid-area: headerTable; }
+
+#footerTable { grid-area: footerTable; }
+
 
 .border {
     display: none;
