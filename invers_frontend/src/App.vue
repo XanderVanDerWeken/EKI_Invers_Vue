@@ -2,9 +2,12 @@
     <div id="app">
         <Header />
         <div class="container">
-            <Board />
+          <Board />
+
+          <div class="controls">
             <Stats v-bind:stats="stats" />
             <ControlPanel />
+          </div>
         </div>
         
     </div> 
@@ -49,5 +52,19 @@
 * {
     outline: dotted red;
 }
+
+.controls {
+  display: grid;
+  grid-template-columns: 0.9fr 0.9fr;
+  grid-template-rows: 1fr;
+  gap: 2px 2px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "StatsComponent ControlComponent";
+}
+
+ControlPanel { grid-area: ControlComponent; }
+
+Stats { grid-area: StatsComponent; }
 
 </style>

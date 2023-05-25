@@ -122,7 +122,7 @@ td {
 .board {
   display: grid;
   grid-template-columns: 0.3fr 2.4fr 0.3fr;
-  grid-template-rows: 0.4fr 2.3fr 0.3fr;
+  grid-template-rows: 0.3fr 2.3fr 0.3fr;
   gap: 2px 2px;
   grid-auto-flow: row;
   justify-content: center;
