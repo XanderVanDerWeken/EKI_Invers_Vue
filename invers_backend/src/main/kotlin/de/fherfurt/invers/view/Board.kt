@@ -3,10 +3,9 @@ package de.fherfurt.invers.view
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Player
-import java.util.*
 
 class Board {
-    val pieces: Vector<Piece>
+    val pieces: MutableList<Piece>
 
     init {
         this.pieces = initializePieces()
@@ -16,12 +15,13 @@ class Board {
 
     }
 
-    fun flipField(row: Int, col: Int) {
-
-    }
-
     /**
      * Method to check if a cell is valid
+     *
+     * @param row row of field
+     * @param col column of field
+     * @param player player to look for valid
+     * @return true if cell is valid, else false
      */
     fun isValid(row: Int, col: Int, player: Player): Boolean {
         val index = rowAndColToIndex(row, col)
@@ -37,8 +37,9 @@ class Board {
         }
     }
 
-    private fun initializePieces(): Vector<Piece> {
-        val pieces = Vector<Piece>()
+    private fun initializePieces(): MutableList<Piece> {
+        val pieces = mutableListOf<Piece>()
+        var nextRed = true
         for(i in 0..99 ) {
             // Border Above & Below
             if(i < 20 || i >= 80) {
@@ -46,16 +47,25 @@ class Board {
             }
             else {
                 val col = i % 10
+                val row = (i / 10).toInt()
                 // Border Left and Right
                 if(col == 0 ||col == 1 || col == 8 || col == 9) {
                     pieces.add( Piece.BORDER )
                 }
-                else { // Inner Empty
-                    pieces.add(Piece.EMPTY)
+                else { // Inner Fields
+                    if((col + row) % 2 == 0) {
+                        pieces.add( Piece.RED )
+                    } else {
+                        pieces.add( Piece.YELLOW )
+                    }
                 }
             }
         }
         return pieces
+    }
+
+    private fun countPieces(piece: Piece): Int   {
+        return pieces.count{ it == piece }
     }
 
     private fun rowAndColToIndex(row: Int, col: Int): Int {

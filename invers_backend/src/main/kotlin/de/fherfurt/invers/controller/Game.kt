@@ -42,7 +42,7 @@ object Game {
         this.board = Board()
     }
 
-    fun board() : Vector<Piece> {
+    fun board() : MutableList<Piece> {
         return this.board.pieces
     }
 
