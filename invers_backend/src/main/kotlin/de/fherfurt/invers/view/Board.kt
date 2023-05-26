@@ -11,29 +11,68 @@ class Board {
         this.pieces = initializePieces()
     }
 
-    fun pushLine(row: Int, col: Int, direction: Direction) {
+    private fun pushRow(newPiece: Piece, rowIndex: Int, direction: Direction) {
+        val row = rowIndex + 1
+        if (direction === Direction.RIGHT) {
 
+        }
+        else {
+
+        }
     }
 
-    /**
-     * Method to check if a cell is valid
-     *
-     * @param row row of field
-     * @param col column of field
-     * @param player player to look for valid
-     * @return true if cell is valid, else false
-     */
-    fun isValid(row: Int, col: Int, player: Player): Boolean {
-        val index = rowAndColToIndex(row, col)
-        val neighborIndex = index + 1
-        return ( pieces[index] == Piece.EMPTY &&
-                (pieces[neighborIndex] == player.piece || pieces[neighborIndex] == player.dottedPiece)
-        )
+    fun getAllLegal(opponentDottedPiece: Piece): Map<Direction, List<Int>> {
+        // Create Lists
+        val result = HashMap<Direction, List<Int>>()
+        val upList = mutableListOf<Int>()
+        val downList = mutableListOf<Int>()
+        val leftList = mutableListOf<Int>()
+        val rightList = mutableListOf<Int>()
+
+        // Check for all directions, all cols and rows
+        for( i in 1..6 ) {
+            if( isLegal(i, Direction.UP,    opponentDottedPiece ) ) upList.add( i )
+            if( isLegal(i, Direction.DOWN,  opponentDottedPiece ) ) downList.add( i )
+            if( isLegal(i, Direction.LEFT,  opponentDottedPiece ) ) leftList.add( i )
+            if( isLegal(i, Direction.RIGHT, opponentDottedPiece ) ) rightList.add( i )
+        }
+
+        // Add everything to result and return
+        result[Direction.UP] =  upList
+        result[Direction.DOWN] = downList
+        result[Direction.LEFT] =  leftList
+        result[Direction.RIGHT] = rightList
+        return result
+    }
+
+    fun isLegal(index: Int, direction: Direction, opponentDottedPiece: Piece): Boolean {
+        return when(direction) {
+            Direction.UP -> {
+                val col = index + 1
+                val topIndexInCol = 20 + col
+                pieces[topIndexInCol] !== opponentDottedPiece
+            }
+            Direction.DOWN -> {
+                val col = index + 1
+                val botIndexInCol = 70 + col
+                pieces[botIndexInCol] !== opponentDottedPiece
+            }
+            Direction.LEFT -> {
+                val row = index + 1
+                val firstIndexInRow = row * 10 + 2
+                pieces[firstIndexInRow] !== opponentDottedPiece
+            }
+            Direction.RIGHT -> {
+                val row = index + 1
+                val lastIndexInRow = row * 10 + 7
+                pieces[lastIndexInRow] !== opponentDottedPiece
+            }
+        }
     }
 
     fun getPlayerScore(player: Player) : Int {
         return pieces.count { piece ->
-            piece == player.piece || piece == player.dottedPiece
+            piece == player.dottedPiece
         }
     }
 
@@ -62,10 +101,6 @@ class Board {
             }
         }
         return pieces
-    }
-
-    private fun countPieces(piece: Piece): Int   {
-        return pieces.count{ it == piece }
     }
 
     private fun rowAndColToIndex(row: Int, col: Int): Int {

@@ -1,5 +1,6 @@
 package de.fherfurt.invers.controller
 
+import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
@@ -25,6 +26,12 @@ object Game {
         get() = board.getPlayerScore( player1 )
     val scorePlayer2
         get() = board.getPlayerScore( player2 )
+    private val opponentDottedPiece
+        get() =
+            if( activePlayer.dottedPiece === Piece.RED_DOT ) Piece.YELLOW_DOT
+            else Piece.RED_DOT
+
+
 
     fun playGame() {
 
@@ -36,6 +43,14 @@ object Game {
 
     fun isGameOver() {
         
+    }
+
+    fun getLegalMoves() : Map<Direction, List<Int>> {
+        return this.board.getAllLegal(opponentDottedPiece)
+    }
+
+    fun isLegalMove( index: Int, direction: Direction) : Boolean {
+        return this.board.isLegal(index, direction, opponentDottedPiece)
     }
 
     fun resetBoard() {
