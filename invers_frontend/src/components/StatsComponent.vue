@@ -2,13 +2,13 @@
     <div>
         <h2>Statistics</h2>
         <p>Player {{ activePlayer() }} turn</p>
-        <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }}</p>
+        <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }} ({{ difference() }})</p>
     </div>
 </template>
 
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import {useApiStore} from "@/stores/apiStore";
+    import { useApiStore } from "@/stores/apiStore";
 
     export default defineComponent({
         name: "Stats",
@@ -39,6 +39,11 @@
         },
         mounted() {
           this.updateStats()
+        },
+        computed: {
+          difference(): number {
+            return this.scorePlayerOne() - this.scorePlayerTwo()
+          }
         }
     })
 </script>
