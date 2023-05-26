@@ -5,7 +5,7 @@
           <Board />
 
           <div class="controls">
-            <Stats v-bind:stats="stats" />
+            <Stats />
             <ControlPanel />
           </div>
         </div>
@@ -15,7 +15,6 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import { useGameStore } from '@/stores/gameStore'
 
     import Header from '@/components/HeaderComponent.vue'
     import Board from '@/components/BoardComponent.vue'
@@ -29,20 +28,6 @@
             Board,
             Stats,
             ControlPanel
-        },
-        setup() {
-            const game = useGameStore();
-
-            const stats = {
-                currentPlayer : game.currentPlayer,
-                scorePlayerOne : game.scorePlayerOne,
-                scorePlayerTwo : game.scorePlayerTwo
-            }
-
-            return {
-                game,
-                stats
-            };
         },
     });
 

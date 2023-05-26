@@ -2,7 +2,7 @@
     <div>
         <h2>Statistics</h2>
         <p>Player {{ activePlayer() }} turn</p>
-        <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }} ({{ difference() }})</p>
+        <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }} ({{ difference }})</p>
     </div>
 </template>
 
