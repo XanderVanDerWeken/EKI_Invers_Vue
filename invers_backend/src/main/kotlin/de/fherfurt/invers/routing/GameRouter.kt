@@ -31,5 +31,9 @@ object GameRouter {
     }
 
     @Serializable
-    private data class Score(val scorePlayer1: Int, val scorePlayer2: Int, val activePlayer: Int)
+    private data class Score(
+        val scorePlayer1: Int,
+        val scorePlayer2: Int,
+        val activePlayer: Int
+    )
 }

@@ -18,6 +18,12 @@ object PlayerRouter {
 
                 // handle Move
             }
+            get("/isLegal/{direction}/{index}") {
+                val direction = Direction.valueOf( call.parameters["direction"]!! )
+                val index = call.parameters["index"]!!.toInt()
+
+                call.respond(HttpStatusCode.OK, Game.isLegalMove( index, direction ))
+            }
             get("/possibleMoves") {
                 val result = mutableListOf<Moves>()
                 Game.getLegalMoves().map { entry ->
@@ -30,6 +36,7 @@ object PlayerRouter {
 
     @Serializable
     private data class Moves (
-        val direction: Direction, val indexes: List<Int>
+        val direction: Direction,
+        val indexes: List<Int>
     )
 }
