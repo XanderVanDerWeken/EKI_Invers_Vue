@@ -2,7 +2,7 @@
     <div id="app">
         <Header />
         <div class="container">
-          <!--<Board />-->
+          <Board />
 
           <div class="controls">
             <Stats />
