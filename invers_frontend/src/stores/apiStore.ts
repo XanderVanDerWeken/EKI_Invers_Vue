@@ -31,8 +31,8 @@ export const useApiStore = defineStore('api', {
     },
     actions: {
        updateValues() {
-           this.fetchStats();
            this.fetchBoard();
+           this.fetchValidMoves();
            this.fetchStats();
        },
        async fetchStats() {
@@ -64,7 +64,7 @@ export const useApiStore = defineStore('api', {
                 .then(response => {
                     response.json()
                         .then(data => {
-                            this.validMoves = data;
+                            this.validMoves = data as Moves[];
                         })
                         .catch(error => console.error( error ));
                 })

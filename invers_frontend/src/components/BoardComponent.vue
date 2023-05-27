@@ -103,15 +103,14 @@ export default defineComponent({
           },
         },
         methods: {
-          getValidDirection(direction: string, index: number) : string {
-            return "validMove";
-            // FIXME: Fix Method
-            /*const result = this.apiStore.validMoves.find((move) => move.direction === direction);
-            if (result!!.indexes.includes(index)) {
-              return "validMove"
-            } else {
-              return "invalidMove"
-            }*/
+          getValidDirection(direction: string, index: number) : string{
+            const result = this.getValidMoves().find((move) => move.direction === direction);
+            if(result != undefined) {
+              if( result.indexes.includes(index) ) {
+                return "validMove";
+              }
+            }
+            return "invalidMove";
           },
         }
     });
