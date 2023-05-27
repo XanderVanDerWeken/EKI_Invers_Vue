@@ -3,31 +3,82 @@ package de.fherfurt.invers.view
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Player
-import java.util.*
 
 class Board {
-    val pieces: Vector<Piece>
+    val pieces: MutableList<Piece>
 
     init {
         this.pieces = initializePieces()
     }
 
-    fun pushLine(row: Int, col: Int, direction: Direction) {
+    private fun pushRow(newPiece: Piece, rowIndex: Int, direction: Direction) {
+        val row = rowIndex + 1
+        if (direction === Direction.RIGHT) {
 
+        }
+        else {
+
+        }
     }
 
-    fun flipField(row: Int, col: Int) {
+    fun getAllLegal(opponentDottedPiece: Piece): Map<Direction, List<Int>> {
+        // Create Lists
+        val result = HashMap<Direction, List<Int>>()
+        val upList = mutableListOf<Int>()
+        val downList = mutableListOf<Int>()
+        val leftList = mutableListOf<Int>()
+        val rightList = mutableListOf<Int>()
 
+        // Check for all directions, all cols and rows
+        for( i in 1..6 ) {
+            if( isLegal(i, Direction.UP,    opponentDottedPiece ) ) upList.add( i )
+            if( isLegal(i, Direction.DOWN,  opponentDottedPiece ) ) downList.add( i )
+            if( isLegal(i, Direction.LEFT,  opponentDottedPiece ) ) leftList.add( i )
+            if( isLegal(i, Direction.RIGHT, opponentDottedPiece ) ) rightList.add( i )
+        }
+
+        // Add everything to result and return
+        result[Direction.UP] =  upList
+        result[Direction.DOWN] = downList
+        result[Direction.LEFT] =  leftList
+        result[Direction.RIGHT] = rightList
+        return result
+    }
+
+    fun isLegal(index: Int, direction: Direction, opponentDottedPiece: Piece): Boolean {
+        return when(direction) {
+            Direction.UP -> {
+                val col = index + 1
+                val topIndexInCol = 20 + col
+                pieces[topIndexInCol] !== opponentDottedPiece
+            }
+            Direction.DOWN -> {
+                val col = index + 1
+                val botIndexInCol = 70 + col
+                pieces[botIndexInCol] !== opponentDottedPiece
+            }
+            Direction.LEFT -> {
+                val row = index + 1
+                val firstIndexInRow = row * 10 + 2
+                pieces[firstIndexInRow] !== opponentDottedPiece
+            }
+            Direction.RIGHT -> {
+                val row = index + 1
+                val lastIndexInRow = row * 10 + 7
+                pieces[lastIndexInRow] !== opponentDottedPiece
+            }
+        }
     }
 
     fun getPlayerScore(player: Player) : Int {
         return pieces.count { piece ->
-            piece == player.piece || piece == player.dottedPiece
+            piece == player.dottedPiece
         }
     }
 
-    private fun initializePieces(): Vector<Piece> {
-        val pieces = Vector<Piece>()
+    private fun initializePieces(): MutableList<Piece> {
+        val pieces = mutableListOf<Piece>()
+        var nextRed = true
         for(i in 0..99 ) {
             // Border Above & Below
             if(i < 20 || i >= 80) {
@@ -35,15 +86,24 @@ class Board {
             }
             else {
                 val col = i % 10
+                val row = (i / 10).toInt()
                 // Border Left and Right
                 if(col == 0 ||col == 1 || col == 8 || col == 9) {
                     pieces.add( Piece.BORDER )
                 }
-                else { // Inner Empty
-                    pieces.add(Piece.EMPTY)
+                else { // Inner Fields
+                    if((col + row) % 2 == 0) {
+                        pieces.add( Piece.RED )
+                    } else {
+                        pieces.add( Piece.YELLOW )
+                    }
                 }
             }
         }
         return pieces
+    }
+
+    private fun rowAndColToIndex(row: Int, col: Int): Int {
+        return row * 10 + col
     }
 }

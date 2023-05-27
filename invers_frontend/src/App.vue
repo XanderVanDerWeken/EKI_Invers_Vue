@@ -2,9 +2,12 @@
     <div id="app">
         <Header />
         <div class="container">
-            <Board />
-            <Stats v-bind:stats="stats" />
+          <Board />
+
+          <div class="controls">
+            <Stats />
             <ControlPanel />
+          </div>
         </div>
         
     </div> 
@@ -12,12 +15,12 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue'
-    import { useGameStore } from '@/stores/gameStore'
 
     import Header from '@/components/HeaderComponent.vue'
     import Board from '@/components/BoardComponent.vue'
     import Stats from '@/components/StatsComponent.vue'
     import ControlPanel from '@/components/ControlPanelComponent.vue'
+    import { useApiStore } from "@/stores/apiStore";
 
     export default defineComponent({
         name: 'Application',
@@ -28,19 +31,20 @@
             ControlPanel
         },
         setup() {
-            const game = useGameStore();
+            const apiStore = useApiStore();
 
-            const stats = {
-                currentPlayer : game.currentPlayer,
-                scorePlayerOne : game.scorePlayerOne,
-                scorePlayerTwo : game.scorePlayerTwo
+            function updateAllValues() {
+              console.log("Called Update");
+              apiStore.updateValues();
             }
 
             return {
-                game,
-                stats
-            };
+              updateAllValues
+            }
         },
+        mounted() {
+          setInterval(this.updateAllValues, 10000);
+        }
     });
 
 </script>
@@ -49,5 +53,19 @@
 * {
     outline: dotted red;
 }
+
+.controls {
+  display: grid;
+  grid-template-columns: 0.9fr 0.9fr;
+  grid-template-rows: 1fr;
+  gap: 2px 2px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "StatsComponent ControlComponent";
+}
+
+ControlPanel { grid-area: ControlComponent; }
+
+Stats { grid-area: StatsComponent; }
 
 </style>
