@@ -4,7 +4,8 @@
       <table>
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
-            <button v-on:click="shiftCol(colIndex, 'down')">Shift</button>
+            <button v-on:click="shiftCol(colIndex, 'down')"
+                    :class="getValidDirection('DOWN', colIndex)">Shift</button>
           </td>
         </tr>
       </table>
@@ -13,7 +14,8 @@
       <table>
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
-            <button v-on:click="shiftRow(rowIndex, 'right')">Shift</button>
+            <button v-on:click="shiftRow(rowIndex, 'right')"
+                    :class="getValidDirection('RIGHT', rowIndex)">Shift</button>
           </td>
         </tr>
       </table>
@@ -33,7 +35,8 @@
       <table>
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
-            <button v-on:click="shiftRow(rowIndex, 'left')">Shift</button>
+            <button v-on:click="shiftRow(rowIndex, 'left')"
+                    :class="getValidDirection('LEFT', rowIndex)">Shift</button>
           </td>
         </tr>
       </table>
@@ -42,7 +45,8 @@
       <table>
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
-            <button v-on:click="shiftCol(colIndex, 'up')">Shift</button>
+            <button v-on:click="shiftCol(colIndex, 'up')"
+                    :class="getValidDirection('UP', colIndex)">Shift</button>
           </td>
         </tr>
       </table>
@@ -53,7 +57,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { Piece } from '@/game/model/Piece'
-import { useApiStore } from "@/stores/apiStore";
+import {useApiStore} from "@/stores/apiStore";
+import type { Moves } from "@/stores/apiStore";
 import { Direction } from "@/game/model/Direction";
 
 export default defineComponent({
@@ -63,6 +68,8 @@ export default defineComponent({
 
             function updateBoard() {
               apiStore.fetchBoard();
+              apiStore.fetchValidMoves();
+              console.log( apiStore.validMoves );
             }
 
             function shiftRow(row: number, direction: string) {
@@ -85,13 +92,17 @@ export default defineComponent({
               }
             }
 
+            function getValidMoves(): Moves[] {
+              return apiStore.validMoves;
+            }
+
             return {
-              //game,
               apiStore,
 
               updateBoard,
               shiftRow,
-              shiftCol
+              shiftCol,
+              getValidMoves
             }
         },
         mounted() {
@@ -101,7 +112,17 @@ export default defineComponent({
           matrix() : Array<Array<Piece>> {
             this.updateBoard();
             return this.apiStore.boardMatrix;
-          }
+          },
+        },
+        methods: {
+          getValidDirection(direction: string, index: number) : string {
+            const result = this.apiStore.validMoves.find((move) => move.direction === direction);
+            if (result!!.indexes.includes(index)) {
+              return "validMove"
+            } else {
+              return "invalidMove"
+            }
+          },
         }
     });
 </script>
@@ -112,6 +133,8 @@ export default defineComponent({
     --backColYel: yellow;
     --backColEmp: white;
     --backColFlip: black;
+    --backColValidMove: green;
+    --backColInvalidMove: red;
 }
 
 td {
@@ -172,6 +195,14 @@ td {
 .red_dot,
 .yellow_dot {
     background-image: radial-gradient(circle, transparent 30%, var(--backColFlip) 40%);
+}
+
+.validMove {
+  background-color: var(--backColValidMove);
+}
+
+.invalidMove {
+  background-color: var(--backColInvalidMove);
 }
 
 </style>

@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import type {Piece} from "@/game/model/Piece";
+import type {Direction} from "@/game/model/Direction";
 
 interface State {
-    scorePlayerOne: number
-    scorePlayerTwo: number
-    activePlayer: number
-    board: Piece[]
+    scorePlayerOne: number;
+    scorePlayerTwo: number;
+    activePlayer: number;
+    board: Piece[];
+    validMoves: Moves[];
 }
 
 export const useApiStore = defineStore('api', {
@@ -14,7 +16,8 @@ export const useApiStore = defineStore('api', {
            scorePlayerOne:0,
            scorePlayerTwo:0,
            activePlayer:0,
-           board: []
+           board: [],
+           validMoves: []
        }
    },
     getters: {
@@ -51,6 +54,17 @@ export const useApiStore = defineStore('api', {
                 })
                 .catch(error => console.error( error ));
         },
+        async fetchValidMoves() {
+            await fetch('http://localhost:8080/players/possibleMoves')
+                .then(response => {
+                    response.json()
+                        .then(data => {
+                            this.validMoves = data;
+                        })
+                        .catch(error => console.error( error ));
+                })
+                .catch(error => console.error( error ));
+        },
        async resetGame() {
            await fetch('http://localhost:8080/game/reset')
                .then(response => {
@@ -60,3 +74,8 @@ export const useApiStore = defineStore('api', {
        }
     }
 });
+
+export interface Moves {
+    direction: string;
+    indexes: number[];
+}
