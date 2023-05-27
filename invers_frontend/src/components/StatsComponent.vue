@@ -25,20 +25,11 @@
             return apiStore.activePlayer;
           }
 
-          function updateStats() {
-            apiStore.fetchStats()
-          }
-
           return {
             scorePlayerOne,
             scorePlayerTwo,
-            activePlayer,
-
-            updateStats
+            activePlayer
           }
-        },
-        mounted() {
-          this.updateStats()
         },
         computed: {
           difference(): number {

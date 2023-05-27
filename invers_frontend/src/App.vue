@@ -2,7 +2,7 @@
     <div id="app">
         <Header />
         <div class="container">
-          <Board />
+          <!--<Board />-->
 
           <div class="controls">
             <Stats />
@@ -20,6 +20,7 @@
     import Board from '@/components/BoardComponent.vue'
     import Stats from '@/components/StatsComponent.vue'
     import ControlPanel from '@/components/ControlPanelComponent.vue'
+    import { useApiStore } from "@/stores/apiStore";
 
     export default defineComponent({
         name: 'Application',
@@ -29,6 +30,21 @@
             Stats,
             ControlPanel
         },
+        setup() {
+            const apiStore = useApiStore();
+
+            function updateAllValues() {
+              console.log("Called Update");
+              apiStore.updateValues();
+            }
+
+            return {
+              updateAllValues
+            }
+        },
+        mounted() {
+          setInterval(this.updateAllValues, 10000);
+        }
     });
 
 </script>
