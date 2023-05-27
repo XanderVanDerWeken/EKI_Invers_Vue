@@ -66,12 +66,6 @@ export default defineComponent({
         setup() {
             const apiStore = useApiStore();
 
-            function updateBoard() {
-              apiStore.fetchBoard();
-              apiStore.fetchValidMoves();
-              console.log( apiStore.validMoves );
-            }
-
             function shiftRow(row: number, direction: string) {
               // Todo: Implement
               if(direction === 'left') {
@@ -98,30 +92,26 @@ export default defineComponent({
 
             return {
               apiStore,
-
-              updateBoard,
               shiftRow,
               shiftCol,
               getValidMoves
             }
         },
-        mounted() {
-          this.updateBoard()
-        },
         computed: {
           matrix() : Array<Array<Piece>> {
-            this.updateBoard();
             return this.apiStore.boardMatrix;
           },
         },
         methods: {
           getValidDirection(direction: string, index: number) : string {
-            const result = this.apiStore.validMoves.find((move) => move.direction === direction);
+            return "validMove";
+            // FIXME: Fix Method
+            /*const result = this.apiStore.validMoves.find((move) => move.direction === direction);
             if (result!!.indexes.includes(index)) {
               return "validMove"
             } else {
               return "invalidMove"
-            }
+            }*/
           },
         }
     });

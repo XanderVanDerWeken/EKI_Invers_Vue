@@ -30,6 +30,11 @@ export const useApiStore = defineStore('api', {
         },
     },
     actions: {
+       updateValues() {
+           this.fetchStats();
+           this.fetchBoard();
+           this.fetchStats();
+       },
        async fetchStats() {
             await fetch('http://localhost:8080/game/stats')
                 .then(response => {
