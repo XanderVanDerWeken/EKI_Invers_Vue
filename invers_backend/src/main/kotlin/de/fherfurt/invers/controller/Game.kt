@@ -2,6 +2,7 @@ package de.fherfurt.invers.controller
 
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.Move
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
 import de.fherfurt.invers.view.Board
@@ -10,7 +11,7 @@ import java.util.*
 object Game {
     private val player1: Player
     private val player2: Player
-    private val activePlayer: Player
+    val activePlayer: Player
     private var board: Board
     private var currentPlayer: Int
 
@@ -34,6 +35,10 @@ object Game {
 
 
     fun playGame() {
+
+    }
+
+    fun processMove( move: Move) {
 
     }
 
