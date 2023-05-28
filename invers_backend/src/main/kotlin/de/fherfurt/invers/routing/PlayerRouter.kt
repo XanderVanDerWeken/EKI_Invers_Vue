@@ -11,10 +11,11 @@ import kotlinx.serialization.Serializable
 object PlayerRouter {
     fun Route.playerRoutes() {
         route("/players") {
-            post("/makeMove/{col}/{row}/{direction}") {
-                val col = call.parameters["col"]!!.toInt()
-                val row = call.parameters["row"]!!.toInt()
-                val direction = call.parameters["direction"]!! to Direction::class
+            post("/makeMove/{direction}/{index}") {
+                call.respond(HttpStatusCode.OK)
+
+                //val index = call.parameters["index"]!!.toInt()
+                //val direction = call.parameters["direction"]!! to Direction::class
 
                 // handle Move
             }
