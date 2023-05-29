@@ -34,7 +34,7 @@ object Game {
 
 
 
-    fun playGame() {
+    suspend fun playGame() {
 
     }
 
