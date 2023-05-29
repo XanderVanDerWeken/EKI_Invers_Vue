@@ -12,8 +12,18 @@ import io.ktor.server.plugins.cors.routing.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.json.Json
 
+/**
+ * Server Application, which is holding on the Server and is the Entry Point to the Jar
+ *
+ * @author Xander Van der Weken
+ */
 object InversServer {
 
+    /**
+     * Main Method and Entry Point.
+     *
+     * @param args args from the command line
+     */
     @JvmStatic
     fun main(args: Array<String>) {
         embeddedServer(Jetty, port = 8080, configure = {
@@ -26,6 +36,10 @@ object InversServer {
     }
 }
 
+/**
+ * Extension from Application, for this server Module.
+ * It is installing Content Serialization and CORS, and controlling the routing
+ */
 fun Application.restApplicationModule() {
     install(ContentNegotiation) {
         json(Json {

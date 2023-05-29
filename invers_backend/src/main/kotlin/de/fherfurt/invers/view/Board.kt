@@ -4,6 +4,12 @@ import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Player
 
+/**
+ * Class representing a Board.
+ * It is holding the list and performing all operations on the board.
+ *
+ * @author Xander Van der Weken
+ */
 class Board {
     val pieces: MutableList<Piece>
 
@@ -21,6 +27,12 @@ class Board {
         }
     }
 
+    /**
+     * Method to get all Legal Moves
+     *
+     * @param opponentDottedPiece opponentDottedPiece
+     * @return Map of Direction and lists of possible indexes
+     */
     fun getAllLegal(opponentDottedPiece: Piece): Map<Direction, List<Int>> {
         // Create Lists
         val result = HashMap<Direction, List<Int>>()
@@ -45,6 +57,13 @@ class Board {
         return result
     }
 
+    /**
+     * Method to check if a move is valid
+     *
+     * @param index index to push
+     * @param direction direction to push
+     * @param opponentDottedPiece opponentDottedPiece dotted Piece of the Opponent Player
+     */
     fun isLegal(index: Int, direction: Direction, opponentDottedPiece: Piece): Boolean {
         return when(direction) {
             Direction.UP -> {
@@ -70,15 +89,25 @@ class Board {
         }
     }
 
+    /**
+     * Method to calculate the player Score
+     *
+     * @param player player for which to calculate the score
+     * @return score of player
+     */
     fun getPlayerScore(player: Player) : Int {
         return pieces.count { piece ->
             piece == player.dottedPiece
         }
     }
 
+    /**
+     * Method to initialize the board
+     *
+     * @return List of Pieces
+     */
     private fun initializePieces(): MutableList<Piece> {
         val pieces = mutableListOf<Piece>()
-        var nextRed = true
         for(i in 0..99 ) {
             // Border Above & Below
             if(i < 20 || i >= 80) {
@@ -103,6 +132,13 @@ class Board {
         return pieces
     }
 
+    /**
+     * Method to map the row and col index from UI to Index in table
+     *
+     * @param row rowindex
+     * @param col colindex
+     * @return index
+     */
     private fun rowAndColToIndex(row: Int, col: Int): Int {
         return row * 10 + col
     }

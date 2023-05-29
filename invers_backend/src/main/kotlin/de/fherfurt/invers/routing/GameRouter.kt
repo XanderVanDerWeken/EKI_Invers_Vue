@@ -9,9 +9,21 @@ import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
 import java.lang.Exception
 
+/**
+ * Game Router Object, which is providing the Endpoints for the Game.
+ * It is handling all Endpoints connected to controlling the Game and fetching Board Data.
+ *
+ * @author Xander Van der Weken
+ */
 object GameRouter {
+    /**
+     * Coroutine Scope for the Game Loop
+     */
     private val gameScope = CoroutineScope(Dispatchers.Default)
 
+    /**
+     * Extension of Route for Game
+     */
     fun Route.gameRoutes() {
         route("/game") {
             post("/play") {
@@ -30,7 +42,7 @@ object GameRouter {
                 call.respond(HttpStatusCode.OK, "Game war resetted")
             }
             get("/stats") {
-                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer())
+                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer)
                 call.respond(result)
             }
             get("/board") {
@@ -40,6 +52,11 @@ object GameRouter {
         }
     }
 
+    /**
+     * Private Serializable Data Class representing all Score Data
+     *
+     * @author Xander Van der Weken
+     */
     @Serializable
     private data class Score(
         val scorePlayer1: Int,

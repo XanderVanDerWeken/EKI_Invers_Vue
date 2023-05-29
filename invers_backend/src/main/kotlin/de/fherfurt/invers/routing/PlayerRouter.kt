@@ -10,7 +10,16 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.Serializable
 
+/**
+ * Player Router Object, which is providing the Endpoints for the Players.
+ * It is handling all Endpoints connected to User Interaction
+ *
+ * @author Xander Van der Weken
+ */
 object PlayerRouter {
+    /**
+     * Extension of Route for Players
+     */
     fun Route.playerRoutes() {
         route("/players") {
             post("/makeMove/{direction}/{index}") {
@@ -40,6 +49,11 @@ object PlayerRouter {
         }
     }
 
+    /**
+     * Private Serializable Data Class representing all legal Moves
+     *
+     * @author Xander Van der Weken
+     */
     @Serializable
     private data class Moves (
         val direction: Direction,
