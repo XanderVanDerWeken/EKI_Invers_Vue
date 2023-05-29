@@ -2,6 +2,8 @@ package de.fherfurt.invers.routing
 
 import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Direction
+import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.UserPlayer
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -11,12 +13,16 @@ import kotlinx.serialization.Serializable
 object PlayerRouter {
     fun Route.playerRoutes() {
         route("/players") {
-            post("/makeMove/{col}/{row}/{direction}") {
-                val col = call.parameters["col"]!!.toInt()
-                val row = call.parameters["row"]!!.toInt()
-                val direction = call.parameters["direction"]!! to Direction::class
+            post("/makeMove/{direction}/{index}") {
+                val direction = Direction.valueOf( call.parameters["direction"]!!.uppercase() )
+                val index = call.parameters["index"]!!.toInt()
 
                 // handle Move
+                val move = Move( direction, index )
+                if( Game.activePlayer is UserPlayer ) {
+                    Game.activePlayer.updateMove( move )
+                }
+
             }
             get("/isLegal/{direction}/{index}") {
                 val direction = Direction.valueOf( call.parameters["direction"]!! )

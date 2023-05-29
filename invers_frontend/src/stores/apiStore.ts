@@ -70,6 +70,17 @@ export const useApiStore = defineStore('api', {
                 })
                 .catch(error => console.error( error ));
         },
+        async postMove( direction: string, index: number ) {
+            await fetch(`http://localhost:8080/players/makeMove/${direction}/${index}`, {
+                method: 'POST',
+            }).then(response => {
+                if(!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log(`Move ${direction} ${index} was made`);
+            })
+            .catch(error => console.error( error ));
+        },
        async resetGame() {
            await fetch('http://localhost:8080/game/reset')
                .then(response => {

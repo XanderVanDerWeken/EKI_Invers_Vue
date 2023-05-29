@@ -4,7 +4,7 @@
       <table>
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
-            <button v-on:click="shiftCol(colIndex, 'down')"
+            <button v-on:click="makeMove('down', colIndex)"
                     :class="getValidDirection('DOWN', colIndex)">Shift</button>
           </td>
         </tr>
@@ -14,7 +14,7 @@
       <table>
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
-            <button v-on:click="shiftRow(rowIndex, 'right')"
+            <button v-on:click="makeMove('right', rowIndex)"
                     :class="getValidDirection('RIGHT', rowIndex)">Shift</button>
           </td>
         </tr>
@@ -35,7 +35,7 @@
       <table>
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
-            <button v-on:click="shiftRow(rowIndex, 'left')"
+            <button v-on:click="makeMove('left', rowIndex)"
                     :class="getValidDirection('LEFT', rowIndex)">Shift</button>
           </td>
         </tr>
@@ -45,7 +45,7 @@
       <table>
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
-            <button v-on:click="shiftCol(colIndex, 'up')"
+            <button v-on:click="makeMove('up', colIndex)"
                     :class="getValidDirection('UP', colIndex)">Shift</button>
           </td>
         </tr>
@@ -57,33 +57,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import type { Piece } from '@/game/model/Piece'
-import {useApiStore} from "@/stores/apiStore";
+import { useApiStore } from "@/stores/apiStore";
 import type { Moves } from "@/stores/apiStore";
-import { Direction } from "@/game/model/Direction";
 
 export default defineComponent({
         name: "Board",
         setup() {
             const apiStore = useApiStore();
 
-            function shiftRow(row: number, direction: string) {
-              // Todo: Implement
-              if(direction === 'left') {
-
-              }
-              else {
-
-              }
-            }
-
-            function shiftCol(col: number, direction: string) {
-              // Todo: Implement
-              if(direction === 'up') {
-
-              }
-              else {
-
-              }
+            function makeMove( direction: string, index: number ) {
+              apiStore.postMove( direction, index );
             }
 
             function getValidMoves(): Moves[] {
@@ -92,8 +75,7 @@ export default defineComponent({
 
             return {
               apiStore,
-              shiftRow,
-              shiftCol,
+              makeMove,
               getValidMoves
             }
         },

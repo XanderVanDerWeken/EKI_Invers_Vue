@@ -5,17 +5,27 @@ import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import kotlinx.coroutines.*
 import kotlinx.serialization.Serializable
+import java.lang.Exception
 
 object GameRouter {
+    private val gameScope = CoroutineScope(Dispatchers.Default)
 
     fun Route.gameRoutes() {
         route("/game") {
             post("/play") {
-                Game.playGame()
+                gameScope.launch {
+                    try {
+                        Game.playGame()
+                    } catch (e: Exception) {
+                        println("Coroutine exception: ${e.message}")
+                    }
+                }
                 call.respond(HttpStatusCode.OK, "Game was started")
             }
             post("/reset") {
+                gameScope.cancel()
                 Game.resetBoard()
                 call.respond(HttpStatusCode.OK, "Game war resetted")
             }

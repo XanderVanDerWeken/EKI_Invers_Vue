@@ -10,7 +10,7 @@ abstract class Player protected constructor(
     private var amountPieces = 18
     private var amountDottedPieces = 0
 
-    abstract fun makeMove(index: Int, piece: Piece)
+    abstract fun makeMove() : Move
 
     protected fun amountPieces(): Int {
         return amountPieces
