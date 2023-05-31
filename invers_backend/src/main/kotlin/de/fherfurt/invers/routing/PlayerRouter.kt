@@ -29,9 +29,12 @@ object PlayerRouter {
                 // handle Move
                 val move = Move( direction, index )
                 if( Game.activePlayer is UserPlayer ) {
-                    Game.activePlayer.updateMove( move )
+                    (Game.activePlayer as UserPlayer).updateMove( move )
+                    call.respond(HttpStatusCode.OK)
                 }
-
+                else {
+                    call.respond(HttpStatusCode.BadRequest)
+                }
             }
             get("/isLegal/{direction}/{index}") {
                 val direction = Direction.valueOf( call.parameters["direction"]!! )
