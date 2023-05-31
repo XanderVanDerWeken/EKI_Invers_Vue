@@ -44,7 +44,7 @@ class Board {
         }
 
         // Setting last piece
-        pieces[nextIndex] = newPiece
+        pieces[index] = newPiece
     }
 
     /**
