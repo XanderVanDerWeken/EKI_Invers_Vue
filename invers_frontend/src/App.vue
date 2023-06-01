@@ -1,52 +1,47 @@
 <template>
-    <div id="app">
-        <Header />
-        <div class="container">
-          <Board />
-
-          <div class="controls">
-            <Stats />
-            <ControlPanel />
-          </div>
-        </div>
-        
-    </div> 
+  <div id="app">
+    <Header />
+    <div class="container">
+      <Board />
+      <div class="controls">
+        <Stats />
+        <ControlPanel />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue'
+  import { defineComponent } from 'vue'
+  import Header from '@/components/HeaderComponent.vue'
+  import Board from '@/components/BoardComponent.vue'
+  import Stats from '@/components/StatsComponent.vue'
+  import ControlPanel from '@/components/ControlPanelComponent.vue'
+  import { useApiStore } from "@/stores/apiStore";
 
-    import Header from '@/components/HeaderComponent.vue'
-    import Board from '@/components/BoardComponent.vue'
-    import Stats from '@/components/StatsComponent.vue'
-    import ControlPanel from '@/components/ControlPanelComponent.vue'
-    import { useApiStore } from "@/stores/apiStore";
+  export default defineComponent({
+    name: 'Application',
+    components: {
+      Header,
+      Board,
+      Stats,
+      ControlPanel
+    },
+    setup() {
+      const apiStore = useApiStore();
 
-    export default defineComponent({
-        name: 'Application',
-        components: {
-            Header,
-            Board,
-            Stats,
-            ControlPanel
-        },
-        setup() {
-            const apiStore = useApiStore();
-
-            function updateAllValues() {
-              console.log("Called Update");
-              apiStore.updateValues();
-            }
-
-            return {
-              updateAllValues
-            }
-        },
-        mounted() {
-          setInterval(this.updateAllValues, 2000);
-        }
-    });
-
+      function updateAllValues() {
+        console.log("Called Update");
+        apiStore.updateValues();
+      }
+      return {
+        updateAllValues
+      }
+    },
+    mounted() {
+      setInterval(this.updateAllValues, 2000);
+    }
+  });
 </script>
 
 <style scoped>

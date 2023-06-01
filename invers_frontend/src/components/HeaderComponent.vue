@@ -1,16 +1,16 @@
 <template>
-    <header>
-        <h1>Inversi Spiel</h1>
-        <p>Kombinatorisches Spiel, für das Modul "<i>Einführung Künstliche Intelligenz</i>", durch Xander Van der Weken</p>
-    </header>
+  <header>
+    <h1>Inversi Spiel</h1>
+    <p>Kombinatorisches Spiel, für das Modul "<i>Einführung Künstliche Intelligenz</i>", durch Xander Van der Weken</p>
+  </header>
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 
-    export default defineComponent({
-        name: "Header"
-    });
+export default defineComponent({
+  name: "Header"
+});
 </script>
 
 <style scoped>

@@ -56,46 +56,46 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import type { Piece } from '@/game/model/Piece'
+import type { Piece } from '@/models/Piece'
 import { useApiStore } from "@/stores/apiStore";
 import type { Moves } from "@/stores/apiStore";
 
 export default defineComponent({
-        name: "Board",
-        setup() {
-            const apiStore = useApiStore();
+  name: "Board",
+  setup() {
+    const apiStore = useApiStore();
 
-            function makeMove( direction: string, index: number ) {
-              apiStore.postMove( direction, index );
-            }
+    function makeMove( direction: string, index: number ) {
+      apiStore.postMove( direction, index );
+    }
 
-            function getValidMoves(): Moves[] {
-              return apiStore.validMoves;
-            }
+    function getValidMoves(): Moves[] {
+      return apiStore.validMoves;
+    }
 
-            return {
-              apiStore,
-              makeMove,
-              getValidMoves
-            }
-        },
-        computed: {
-          matrix() : Array<Array<Piece>> {
-            return this.apiStore.boardMatrix;
-          },
-        },
-        methods: {
-          getValidDirection(direction: string, index: number) : string{
-            const result = this.getValidMoves().find((move) => move.direction === direction);
-            if(result != undefined) {
-              if( result.indexes.includes(index) ) {
-                return "validMove";
-              }
-            }
-            return "invalidMove";
-          },
+    return {
+      apiStore,
+      makeMove,
+      getValidMoves
+    }
+  },
+  computed: {
+    matrix() : Array<Array<Piece>> {
+      return this.apiStore.boardMatrix;
+    },
+  },
+  methods: {
+    getValidDirection(direction: string, index: number) : string{
+      const result = this.getValidMoves().find((move) => move.direction === direction);
+      if(result != undefined) {
+        if( result.indexes.includes(index) ) {
+          return "validMove";
         }
-    });
+      }
+      return "invalidMove";
+    },
+  }
+});
 </script>
 
 <style scoped>

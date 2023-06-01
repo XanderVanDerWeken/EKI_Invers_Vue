@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
-import type {Piece} from "@/game/model/Piece";
-import type {Direction} from "@/game/model/Direction";
+import type {Piece} from "@/models/Piece";
 
 interface State {
     scorePlayerOne: number;
@@ -90,7 +89,7 @@ export const useApiStore = defineStore('api', {
                 })
                 .catch(error => console.error( error ));
         },
-       async resetGame() {
+        async resetGame() {
            await fetch('http://localhost:8080/game/reset', {
                method: 'POST'
            })
