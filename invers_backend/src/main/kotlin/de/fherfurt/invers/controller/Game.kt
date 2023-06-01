@@ -74,9 +74,11 @@ object Game {
      */
     private fun switchPlayer() {
         activePlayer = if(activePlayer.piece == player1.piece) {
+            currentPlayer++
             player2
         }
         else {
+            currentPlayer--
             player1
         }
     }

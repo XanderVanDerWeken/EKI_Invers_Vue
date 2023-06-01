@@ -1,5 +1,6 @@
 <template>
     <h2>Control Panel</h2>
+    <button v-on:click="startGame()">Start Game</button>
     <button v-on:click="resetBoard()">Reset Game</button>
 </template>
 
@@ -12,12 +13,18 @@
         setup() {
             const apiStore = useApiStore();
 
+            function startGame() {
+                apiStore.playGame();
+                alert("Game has been started");
+            }
+
             function resetBoard() {
-                alert("reset");
                 apiStore.resetGame();
+                alert("Game has been reset.");
             }
 
             return {
+                startGame,
                 resetBoard
             };
         },

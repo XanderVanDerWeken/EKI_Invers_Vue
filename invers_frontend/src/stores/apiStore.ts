@@ -81,10 +81,21 @@ export const useApiStore = defineStore('api', {
             })
             .catch(error => console.error( error ));
         },
-       async resetGame() {
-           await fetch('http://localhost:8080/game/reset')
-               .then(response => {
+        async playGame() {
+            await fetch('http://localhost:8080/game/play', {
+                method: 'POST'
+            })
+                .then(response => {
 
+                })
+                .catch(error => console.error( error ));
+        },
+       async resetGame() {
+           await fetch('http://localhost:8080/game/reset', {
+               method: 'POST'
+           })
+               .then(response => {
+                   
                })
                .catch(error => console.error( error ));
        }
