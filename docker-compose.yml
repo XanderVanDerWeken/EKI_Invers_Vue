@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  server:
+    build: ./invers_backend
+    container_name: "Invers_Server"
+    ports:
+      - "8080:8080"
+
+  client:
+    build: ./invers_frontend
+    container_name: "Invers_UI"
+    volumes:
+      - ./invers_frontend:/app
+    ports:
+      - "8081:80"
+    depends_on:
+      - server

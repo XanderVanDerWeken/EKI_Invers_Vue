@@ -17,14 +17,34 @@ class Board {
         this.pieces = initializePieces()
     }
 
-    private fun pushRow(newPiece: Piece, rowIndex: Int, direction: Direction) {
-        val row = rowIndex + 1
-        if (direction === Direction.RIGHT) {
-
+    /**
+     * Method to apply a move.
+     * It is replacing from last to first index
+     *
+     * @param newPiece newPiece to be shifted in
+     * @param newIndex newIndex where the piece is shifted in
+     * @param direction direction the piece is shifted
+     */
+    fun applyMove(newPiece: Piece, newIndex: Int, direction: Direction) {
+        // Calculate last Index
+        // Starting from last to first to shift
+        var index = when(direction) {
+            Direction.UP    -> rowAndColToIndex(1, newIndex)
+            Direction.DOWN  -> rowAndColToIndex(6, newIndex)
+            Direction.LEFT  -> rowAndColToIndex(newIndex, 6)
+            Direction.RIGHT -> rowAndColToIndex(newIndex, 1)
         }
-        else {
 
+        // Setting until Border
+        var nextIndex = index + direction.nextIndex
+        while(pieces[nextIndex] != Piece.BORDER) {
+            pieces[index] = pieces[nextIndex]
+            index = nextIndex
+            nextIndex += direction.nextIndex
         }
+
+        // Setting last piece
+        pieces[index] = newPiece
     }
 
     /**

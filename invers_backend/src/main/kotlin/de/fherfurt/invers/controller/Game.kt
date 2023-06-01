@@ -16,7 +16,7 @@ import de.fherfurt.invers.view.Board
 object Game {
     private val player1: Player
     private val player2: Player
-    val activePlayer: Player
+    var activePlayer: Player
     private var board: Board
     var currentPlayer: Int
         private set
@@ -54,19 +54,41 @@ object Game {
      * Method representing the Game Loop
      */
     suspend fun playGame() {
+        while(!isGameOver()) {
+            // Let Player make Move
+            val newMove = activePlayer.makeMove()
+            processMove(newMove)
 
+            // Switch Player
+            switchPlayer()
+        }
     }
 
-    fun processMove( move: Move) {
-
+    private fun processMove(move: Move) {
+        val nextPiece = activePlayer.dottedPiece
+        board.applyMove( nextPiece, move.index, move.direction )
     }
 
-    fun switchPlayer() {
-
+    /**
+     * Method to switch Players on active Player
+     */
+    private fun switchPlayer() {
+        activePlayer = if(activePlayer.piece == player1.piece) {
+            player2
+        }
+        else {
+            player1
+        }
     }
 
-    fun isGameOver() {
-        
+    /**
+     * Method to check if Game is Over.
+     * Game is over, if one player turned over all his 18 pieces
+     *
+     * @return true if game is over, else false
+     */
+    private fun isGameOver() : Boolean {
+        return scorePlayer1 == 18 || scorePlayer2 == 18
     }
 
     /**
