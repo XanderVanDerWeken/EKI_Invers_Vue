@@ -12,6 +12,7 @@ import de.fherfurt.invers.model.Player
  */
 class Board {
     val pieces: MutableList<Piece>
+    val offsetInArray: Int = 11
 
     init {
         this.pieces = initializePieces()
@@ -160,6 +161,6 @@ class Board {
      * @return index
      */
     private fun rowAndColToIndex(row: Int, col: Int): Int {
-        return row * 10 + col + 11
+        return row * 10 + col + offsetInArray
     }
 }
