@@ -43,7 +43,7 @@
             }
         },
         mounted() {
-          setInterval(this.updateAllValues, 10000);
+          setInterval(this.updateAllValues, 2000);
         }
     });
 
