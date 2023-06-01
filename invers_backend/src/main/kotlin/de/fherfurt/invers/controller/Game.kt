@@ -64,12 +64,15 @@ object Game {
         }
     }
 
-    fun processMove( move: Move) {
+    private fun processMove(move: Move) {
         val nextPiece = activePlayer.dottedPiece
         board.applyMove( nextPiece, move.index, move.direction )
     }
 
-    fun switchPlayer() {
+    /**
+     * Method to switch Players on active Player
+     */
+    private fun switchPlayer() {
         activePlayer = if(activePlayer.piece == player1.piece) {
             player2
         }
@@ -78,9 +81,14 @@ object Game {
         }
     }
 
-    fun isGameOver() : Boolean {
-        // TODO: Implement Method
-        return false
+    /**
+     * Method to check if Game is Over.
+     * Game is over, if one player turned over all his 18 pieces
+     *
+     * @return true if game is over, else false
+     */
+    private fun isGameOver() : Boolean {
+        return scorePlayer1 == 18 || scorePlayer2 == 18
     }
 
     /**
