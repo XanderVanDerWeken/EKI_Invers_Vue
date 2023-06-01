@@ -160,6 +160,6 @@ class Board {
      * @return index
      */
     private fun rowAndColToIndex(row: Int, col: Int): Int {
-        return row * 10 + col
+        return row * 10 + col + 11
     }
 }
