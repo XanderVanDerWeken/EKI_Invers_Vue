@@ -1,18 +1,10 @@
-FROM node:20
-
+FROM node:20 AS build
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Copy source code
 COPY . .
-
-# Build application
+RUN npm ci
 RUN npm run build
 
-# Expose Port
-EXPOSE 4173
+FROM nginx:latest
+COPY --from=build /app/dist /usr/share/nginx/html
 
-CMD ["npm", "run", "preview"] 

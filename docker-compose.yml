@@ -10,7 +10,9 @@ services:
   client:
     build: ./invers_frontend
     container_name: "Invers_UI"
+    volumes:
+      - ./invers_frontend:/app
     ports:
-      - "4173:4173"
+      - "8081:80"
     depends_on:
       - server
