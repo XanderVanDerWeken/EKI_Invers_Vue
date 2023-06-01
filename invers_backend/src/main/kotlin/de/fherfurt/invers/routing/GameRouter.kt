@@ -39,7 +39,7 @@ object GameRouter {
             post("/reset") {
                 gameScope.cancel()
                 Game.resetBoard()
-                call.respond(HttpStatusCode.OK, "Game war resetted")
+                call.respond(HttpStatusCode.OK, "Game was resetted")
             }
             get("/stats") {
                 val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer)
