@@ -1,7 +1,9 @@
 <template>
-  <h2>Control Panel</h2>
-  <button v-on:click="startGame()">Start Game</button>
-  <button v-on:click="resetBoard()">Reset Game</button>
+  <div>
+    <h2>Control Panel</h2>
+    <button v-on:click="startGame()">Start Game</button>
+    <button v-on:click="resetBoard()">Reset Game</button>
+  </div>
 </template>
 
 <script lang="ts">
@@ -33,7 +35,9 @@ export default defineComponent({
 
 <style scoped>
 button {
-    width: 100px;
-    height: 40px;
+  display: block;
+  width: 100px;
+  height: 40px;
+  margin: 10px;
 }
 </style>

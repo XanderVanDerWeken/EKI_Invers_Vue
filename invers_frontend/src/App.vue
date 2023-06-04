@@ -1,13 +1,16 @@
 <template>
   <div id="app">
     <Header />
-    <div class="container">
-      <Board />
-      <div class="controls">
+    <div id="main">
+      <div id="mainLeft">
+        <Board />
+      </div>
+      <div id="mainRight">
         <Stats />
         <ControlPanel />
       </div>
     </div>
+    <HowTo />
   </div>
 </template>
 
@@ -17,6 +20,7 @@
   import Board from '@/components/BoardComponent.vue'
   import Stats from '@/components/StatsComponent.vue'
   import ControlPanel from '@/components/ControlPanelComponent.vue'
+  import HowTo from '@/components/HowToComponent.vue'
   import { useApiStore } from "@/stores/apiStore";
 
   export default defineComponent({
@@ -25,7 +29,8 @@
       Header,
       Board,
       Stats,
-      ControlPanel
+      ControlPanel,
+      HowTo
     },
     setup() {
       const apiStore = useApiStore();
@@ -49,18 +54,20 @@
     outline: dotted red;
 }
 
-.controls {
-  display: grid;
-  grid-template-columns: 0.9fr 0.9fr;
-  grid-template-rows: 1fr;
-  gap: 2px 2px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "StatsComponent ControlComponent";
+#main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: normal;
 }
 
-ControlPanel { grid-area: ControlComponent; }
+#mainLeft {
+  display: block;
+}
 
-Stats { grid-area: StatsComponent; }
-
+#mainRight {
+  display: block;
+  margin-left: 100px;
+}
 </style>
