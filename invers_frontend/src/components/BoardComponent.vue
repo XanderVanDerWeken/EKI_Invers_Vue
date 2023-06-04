@@ -52,6 +52,7 @@
       </table>
     </div>
   </div>
+  <p id="validMoveText">{{getIfMoveWasValid()}}</p>
 </template>
 
 <script lang="ts">
@@ -73,10 +74,20 @@ export default defineComponent({
       return apiStore.validMoves;
     }
 
+    function getIfMoveWasValid(): string {
+      if(apiStore.makeMoveResult === 'Invalid Move') {
+        return `${apiStore.makeMoveResult} !!`;
+      }
+      else {
+        return '';
+      }
+    }
+
     return {
       apiStore,
       makeMove,
-      getValidMoves
+      getValidMoves,
+      getIfMoveWasValid
     }
   },
   computed: {
@@ -111,6 +122,11 @@ export default defineComponent({
 td {
     width: 50px;
     height: 50px;
+}
+
+#validMoveText {
+  font-weight: bold;
+  color: var(--backColInvalidMove);
 }
 
 .board {

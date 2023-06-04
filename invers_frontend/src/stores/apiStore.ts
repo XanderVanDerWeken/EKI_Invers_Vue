@@ -5,6 +5,7 @@ interface State {
     scorePlayerOne: number;
     scorePlayerTwo: number;
     activePlayer: number;
+    makeMoveResult: string;
     board: Piece[];
     validMoves: Moves[];
 }
@@ -15,6 +16,7 @@ export const useApiStore = defineStore('api', {
            scorePlayerOne:0,
            scorePlayerTwo:0,
            activePlayer:0,
+           makeMoveResult: "",
            board: [],
            validMoves: []
        }
@@ -76,7 +78,11 @@ export const useApiStore = defineStore('api', {
                 if(!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                console.log(`Move ${direction} ${index} was made`);
+                response.text()
+                    .then(data => {
+                        this.makeMoveResult = data;
+                    })
+                    .catch(error => console.error( error ));
             })
             .catch(error => console.error( error ));
         },

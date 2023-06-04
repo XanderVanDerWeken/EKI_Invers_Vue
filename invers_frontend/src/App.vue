@@ -36,7 +36,6 @@
       const apiStore = useApiStore();
 
       function updateAllValues() {
-        console.log("Called Update");
         apiStore.updateValues();
       }
       return {
