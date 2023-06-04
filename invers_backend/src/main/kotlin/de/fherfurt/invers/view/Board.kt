@@ -27,25 +27,21 @@ class Board {
      * @param direction direction the piece is shifted
      */
     fun applyMove(newPiece: Piece, newIndex: Int, direction: Direction) {
-        // Calculate last Index
-        // Starting from last to first to shift
-        var index = when(direction) {
-            Direction.UP    -> rowAndColToIndex(1, newIndex)
-            Direction.DOWN  -> rowAndColToIndex(6, newIndex)
-            Direction.LEFT  -> rowAndColToIndex(newIndex, 6)
-            Direction.RIGHT -> rowAndColToIndex(newIndex, 1)
-        }
+        // calculate index of last position
+        var index = this.getLastIndex(direction, newIndex)
 
-        // Setting until Border
-        var nextIndex = index + direction.nextIndex
-        while(pieces[nextIndex] != Piece.BORDER) {
-            pieces[index] = pieces[nextIndex]
-            index = nextIndex
-            nextIndex += direction.nextIndex
-        }
+        // While not running into border
+        while (pieces[index] != Piece.BORDER) {
+            val prevIndex = index + direction.previousIndex
 
-        // Setting last piece
-        pieces[index] = newPiece
+            if(pieces[prevIndex] != Piece.BORDER) { // Case In Field
+                pieces[index] = pieces[prevIndex]
+            }
+            else { // Case colliding into border
+                pieces[index] = newPiece
+            }
+            index = prevIndex
+        }
     }
 
     /**
@@ -86,28 +82,8 @@ class Board {
      * @param opponentDottedPiece opponentDottedPiece dotted Piece of the Opponent Player
      */
     fun isLegal(index: Int, direction: Direction, opponentDottedPiece: Piece): Boolean {
-        return when(direction) {
-            Direction.UP -> {
-                val col = index + 1
-                val topIndexInCol = 20 + col
-                pieces[topIndexInCol] !== opponentDottedPiece
-            }
-            Direction.DOWN -> {
-                val col = index + 1
-                val botIndexInCol = 70 + col
-                pieces[botIndexInCol] !== opponentDottedPiece
-            }
-            Direction.LEFT -> {
-                val row = index + 1
-                val firstIndexInRow = row * 10 + 2
-                pieces[firstIndexInRow] !== opponentDottedPiece
-            }
-            Direction.RIGHT -> {
-                val row = index + 1
-                val lastIndexInRow = row * 10 + 7
-                pieces[lastIndexInRow] !== opponentDottedPiece
-            }
-        }
+        val lastIndex = this.getLastIndex(direction, index)
+        return pieces[lastIndex] != opponentDottedPiece
     }
 
     /**
@@ -151,6 +127,30 @@ class Board {
             }
         }
         return pieces
+    }
+
+    /**
+     * Helper Method to get the last index in direction
+     *
+     * @param direction direction to shift
+     * @param newIndex index from col or row, from frontend, with 1 <= newIndex <= 6
+     * @return last Index of direction
+     */
+    private fun getLastIndex(direction: Direction, newIndex: Int) : Int {
+        return when (direction) {
+            Direction.UP -> {
+                rowAndColToIndex(1, newIndex)
+            }
+            Direction.DOWN -> {
+                rowAndColToIndex(6, newIndex)
+            }
+            Direction.LEFT -> {
+                rowAndColToIndex(newIndex, 1)
+            }
+            Direction.RIGHT -> {
+                rowAndColToIndex(newIndex, 6)
+            }
+        }
     }
 
     /**
