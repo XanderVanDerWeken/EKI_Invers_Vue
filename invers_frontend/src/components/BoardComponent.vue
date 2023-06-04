@@ -5,7 +5,7 @@
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
             <button v-on:click="makeMove('down', colIndex)"
-                    :class="getValidDirection('DOWN', colIndex)">Shift</button>
+                    :class="getValidDirection('DOWN', colIndex) + ' rowButtons'">Shift</button>
           </td>
         </tr>
       </table>
@@ -15,7 +15,7 @@
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
             <button v-on:click="makeMove('right', rowIndex)"
-                    :class="getValidDirection('RIGHT', rowIndex)">Shift</button>
+                    :class="getValidDirection('RIGHT', rowIndex) + ' colButtons'">Shift</button>
           </td>
         </tr>
       </table>
@@ -36,7 +36,7 @@
         <tr v-for="rowIndex in 6" :key="rowIndex">
           <td>
             <button v-on:click="makeMove('left', rowIndex)"
-                    :class="getValidDirection('LEFT', rowIndex)">Shift</button>
+                    :class="getValidDirection('LEFT', rowIndex) + ' colButtons'">Shift</button>
           </td>
         </tr>
       </table>
@@ -46,7 +46,7 @@
         <tr>
           <td v-for="colIndex in 6" :key="colIndex">
             <button v-on:click="makeMove('up', colIndex)"
-                    :class="getValidDirection('UP', colIndex)">Shift</button>
+                    :class="getValidDirection('UP', colIndex) + ' rowButtons'">Shift</button>
           </td>
         </tr>
       </table>
@@ -129,15 +129,37 @@ td {
     ". footerTable .";
 }
 
-#rightTable { grid-area: rightTable; }
+.rowButtons {
+  padding: 8px;
+  margin-right: 7px;
+  margin-left: 7px;
+}
 
-#centerTable { grid-area: centerTable; }
+.colButtons {
+  padding: 8px;
+  margin-bottom: 13px;
+  margin-top: 13px;
+}
 
-#leftTable { grid-area: leftTable; }
+#rightTable {
+  grid-area: rightTable;
+}
 
-#headerTable { grid-area: headerTable; }
+#centerTable {
+  grid-area: centerTable;
+}
 
-#footerTable { grid-area: footerTable; }
+#leftTable {
+  grid-area: leftTable;
+}
+
+#headerTable {
+  grid-area: headerTable;
+}
+
+#footerTable {
+  grid-area: footerTable;
+}
 
 
 .border {
