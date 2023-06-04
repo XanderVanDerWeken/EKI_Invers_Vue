@@ -67,6 +67,9 @@ export default defineComponent({
 
     function makeMove( direction: string, index: number ) {
       apiStore.postMove( direction, index );
+      if(apiStore.makeMoveResult === 'Invalid Move') {
+        alert("Move was invalid. Try again!")
+      }
     }
 
     function getValidMoves(): Moves[] {
