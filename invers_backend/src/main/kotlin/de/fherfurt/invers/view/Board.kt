@@ -56,6 +56,21 @@ class Board {
         }
 
         /**
+         * Method to apply multiple moves on a copy of a list
+         *
+         * @param pieces original pieces list
+         * @param moves moves to execute
+         * @return copied list with moves executed on
+         */
+        fun applyMovesOnCopy(pieces: List<Piece>, moves: List<Move>) : MutableList<Piece> {
+            val copyList = pieces.toMutableList()
+            moves.forEach { move ->
+                applyMove(copyList, move)
+            }
+            return copyList
+        }
+
+        /**
          * Method to get all Legal Moves
          *
          * @param pieces pieces List where the legal Moves are asked for
