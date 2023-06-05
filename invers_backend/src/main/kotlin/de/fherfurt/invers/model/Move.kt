@@ -1,6 +1,7 @@
 package de.fherfurt.invers.model
 
 import de.fherfurt.invers.core.Direction
+import de.fherfurt.invers.core.Piece
 
 /**
  * Data Class representing a Move.
@@ -10,5 +11,6 @@ import de.fherfurt.invers.core.Direction
  */
 data class Move(
     val direction: Direction,
-    val index: Int
+    val index: Int,
+    val piece: Piece
 )
