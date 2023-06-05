@@ -10,7 +10,7 @@ import de.fherfurt.invers.core.Piece
  */
 class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
 
-    private var nextMove: Move? = null
+    private var nextMove: MoveInstruction? = null
 
     private val lock = Any()
 
@@ -24,7 +24,11 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
         updateMove( null )
         while ( readMove() == null ) { }
 
-        return readMove()!!
+        return Move(
+            readMove()!!.direction,
+            readMove()!!.index,
+            dottedPiece
+        )
     }
 
     /**
@@ -33,7 +37,7 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
      *
      * @param move move to set
      */
-    fun updateMove( move: Move? ) {
+    fun updateMove( move: MoveInstruction? ) {
         synchronized( lock ) {
             nextMove = move
         }
@@ -45,7 +49,7 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
      *
      * @return Move if move was set, else null
      */
-    fun readMove() : Move? {
+    fun readMove() : MoveInstruction? {
         synchronized( lock ) {
             return nextMove
         }
