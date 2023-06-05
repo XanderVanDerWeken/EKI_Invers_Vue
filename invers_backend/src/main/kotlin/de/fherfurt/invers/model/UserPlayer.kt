@@ -18,7 +18,7 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
      * Method to make a move.
      * It is waiting while no move is set through the API.
      *
-     * @return move t obe made and applied on the Board
+     * @return move to be made and applied on the Board
      */
     override fun makeMove() : Move {
         updateMove( null )
