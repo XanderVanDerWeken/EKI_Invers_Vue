@@ -2,6 +2,8 @@ package de.fherfurt.invers.view
 
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 
 /**
@@ -33,23 +35,21 @@ class Board {
          * It is replacing from last to first index
          *
          * @param pieces pieces List where the Move should be applied on
-         * @param newPiece newPiece to be shifted in
-         * @param newIndex newIndex where the piece is shifted in
-         * @param direction direction the piece is shifted
+         * @param move move to apply
          */
-        fun applyMove(pieces: MutableList<Piece>, newPiece: Piece, newIndex: Int, direction: Direction) {
+        fun applyMove(pieces: MutableList<Piece>, move: Move) {
             // calculate index of last position
-            var index = this.getLastIndex(direction, newIndex)
+            var index = this.getLastIndex(move.direction, move.index)
 
             // While not running into border
             while (pieces[index] != Piece.BORDER) {
-                val prevIndex = index + direction.previousIndex
+                val prevIndex = index + move.direction.previousIndex
 
                 if(pieces[prevIndex] != Piece.BORDER) { // Case In Field
                     pieces[index] = pieces[prevIndex]
                 }
                 else { // Case colliding into border
-                    pieces[index] = newPiece
+                    pieces[index] = move.piece
                 }
                 index = prevIndex
             }
@@ -152,12 +152,10 @@ class Board {
      * Method to apply a move.
      * It is replacing from last to first index
      *
-     * @param newPiece newPiece to be shifted in
-     * @param newIndex newIndex where the piece is shifted in
-     * @param direction direction the piece is shifted
+     * @param move move to apply
      */
-    fun applyMove(newPiece: Piece, newIndex: Int, direction: Direction) {
-        return BoardUtils.applyMove(this.pieces, newPiece, newIndex, direction)
+    fun applyMove(move: Move) {
+        return BoardUtils.applyMove(this.pieces, move)
     }
 
     /**

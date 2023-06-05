@@ -57,16 +57,11 @@ object Game {
         while(!isGameOver()) {
             // Let Player make Move
             val newMove = activePlayer.makeMove()
-            processMove(newMove)
+            board.applyMove(newMove)
 
             // Switch Player
             switchPlayer()
         }
-    }
-
-    private fun processMove(move: Move) {
-        val nextPiece = activePlayer.dottedPiece
-        board.applyMove( nextPiece, move.index, move.direction )
     }
 
     /**
