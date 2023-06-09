@@ -3,7 +3,6 @@ package de.fherfurt.invers.view
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Move
-import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 
 /**
@@ -122,8 +121,19 @@ class Board {
          * @return score of player
          */
         fun getPlayerScore(pieces: List<Piece>, player: Player) : Int {
+            return countPieces(pieces, player.dottedPiece)
+        }
+
+        /**
+         * Method to count a kind of pieces on the Board
+         *
+         * @param pieces pieces where to count
+         * @param countingPiece countingPiece which to count
+         * @return score of counted Piece
+         */
+        fun countPieces( pieces: List<Piece>, countingPiece: Piece ) : Int {
             return pieces.count { piece ->
-                piece == player.dottedPiece
+                piece == countingPiece
             }
         }
 
