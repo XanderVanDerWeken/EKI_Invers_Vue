@@ -2,7 +2,6 @@ package de.fherfurt.invers.controller
 
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
-import de.fherfurt.invers.model.Move
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
 import de.fherfurt.invers.view.Board
@@ -85,7 +84,7 @@ object Game {
      * @return true if game is over, else false
      */
     private fun isGameOver() : Boolean {
-        return scorePlayer1 == 18 || scorePlayer2 == 18
+        return this.board.isGameOver()
     }
 
     /**

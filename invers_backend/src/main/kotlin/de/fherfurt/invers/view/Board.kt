@@ -138,6 +138,19 @@ class Board {
         }
 
         /**
+         * Method to check if a given Board of pieces is game over
+         *
+         * @param pieces pieces to check
+         * @return true if Game is over, else false
+         */
+        fun isGameOver( pieces: List<Piece> ) : Boolean {
+            val amountDottedRed = countPieces(pieces, Piece.RED_DOT)
+            val amountDottedYellow = countPieces(pieces, Piece.YELLOW_DOT)
+
+            return amountDottedRed == 18 || amountDottedYellow == 18
+        }
+
+        /**
          * Helper Method to get the last index in direction
          *
          * @param direction direction to shift
@@ -212,6 +225,15 @@ class Board {
      */
     fun getPlayerScore(player: Player) : Int {
         return BoardUtils.getPlayerScore(this.pieces, player)
+    }
+
+    /**
+     * Method to check if this Board is Game Over
+     *
+     * @return true if Game is over, else false
+     */
+    fun isGameOver() : Boolean {
+        return BoardUtils.isGameOver(this.pieces)
     }
 
     /**

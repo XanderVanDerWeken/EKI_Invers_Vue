@@ -12,6 +12,7 @@ import de.fherfurt.invers.view.Board
  */
 class Node(val moves: MutableList<Move>) {
     val childNodes: MutableList<Node> = mutableListOf()
+    var weight: Int = 0
 
     constructor() : this(mutableListOf<Move>())
 
@@ -39,8 +40,31 @@ class Node(val moves: MutableList<Move>) {
         return this
     }
 
-    fun getWeight(player: Player) : Int {
-        val copy = Board.applyMovesOnCopy(Game.board(), moves)
-        return Board.getPlayerScore(copy, player)
+    /**
+     * Method to check if a Node is terminal.
+     * A Node is terminal, if the state is game over or max depth is reached
+     *
+     * @return true if node is Terminal, else false
+     */
+    fun isTerminal() : Boolean {
+        val gameOver = Board.isGameOver(pieces = Board.applyMovesOnCopy(Game.board(), this.moves))
+
+        return gameOver || childNodes.isEmpty()
+    }
+
+    /**
+     * Method to evaluate the Board.
+     * It creates the scenario Board and counts the scores
+     *
+     * @param ownPiece own dotted Piece
+     * @param opponentPiece opponent dotted Piece
+     * @return difference of ownPiece and opponentPiece
+     */
+    fun evaluateBoard(ownPiece: Piece, opponentPiece: Piece) : Int {
+        val scenarioBoard = Board.applyMovesOnCopy(Game.board(), this.moves)
+        val ownScore = Board.countPieces(scenarioBoard, ownPiece)
+        val opponentScore = Board.countPieces(scenarioBoard, opponentPiece)
+
+        return ownScore - opponentScore
     }
 }
