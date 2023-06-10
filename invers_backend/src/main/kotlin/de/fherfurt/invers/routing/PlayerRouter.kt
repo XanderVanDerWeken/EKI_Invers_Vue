@@ -3,6 +3,7 @@ package de.fherfurt.invers.routing
 import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.UserPlayer
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -27,7 +28,7 @@ object PlayerRouter {
                 val index = call.parameters["index"]!!.toInt()
 
                 // handle Move
-                val move = Move( direction, index )
+                val move = MoveInstruction( direction, index )
                 if( Game.activePlayer is UserPlayer ) {
                     if(Game.isLegalMove(index, direction)) {
                         (Game.activePlayer as UserPlayer).updateMove( move )
