@@ -29,17 +29,6 @@ object Game {
         this.currentPlayer = 1
     }
 
-    fun changePlayer(playerNum: Int) {
-        var playerToChange = if(playerNum == 0) player1
-            else player2
-        when(playerToChange.playerKind) {
-            UserPlayer.userPayerKind -> playerToChange = ComPlayer(playerToChange)
-            ComPlayer.aiPlayerKind -> playerToChange = UserPlayer(playerToChange)
-        }
-        if(playerNum == 0) player1 = playerToChange
-            else player2 = playerToChange
-    }
-
     /**
      * Returns the score of Player 1
      */

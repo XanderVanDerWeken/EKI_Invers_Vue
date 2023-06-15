@@ -8,8 +8,6 @@
     <h2>Options</h2>
     <p>Player 1 ({{ colorPlayerOne() }}) is {{ kindPlayerOne() }}</p>
     <p>Player 2 ({{ colorPlayerTwo() }}) is {{ kindPlayerTwo() }}</p>
-    <button v-on:click="changePlayer(0)">Change Player 1</button>
-    <button v-on:click="changePlayer(1)">Change Player 2</button>
   </div>
 </template>
 
@@ -45,18 +43,13 @@ export default defineComponent({
       return apiStore.colorPlayerTwo;
     }
 
-    function changePlayer(playerNum: number) {
-      apiStore.putChangePlayer(playerNum);
-    }
-
     return {
       startGame,
       resetBoard,
       kindPlayerOne,
       kindPlayerTwo,
       colorPlayerOne,
-      colorPlayerTwo,
-      changePlayer
+      colorPlayerTwo
     };
   },
 })

@@ -127,16 +127,7 @@ export const useApiStore = defineStore('api', {
                    
                })
                .catch(error => console.error( error ));
-       },
-        async putChangePlayer(playerNum: number) {
-           await fetch(`http://localhost:8080/game/changePlayer/${playerNum}`, {
-               method: 'PUT'
-           })
-               .then(response => {
-
-               })
-               .catch(error => console.error( error ));
-        }
+       }
     }
 });
 
