@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import type {Piece} from "@/models/Piece";
+import {jsx} from "vue/jsx-runtime";
 
 interface State {
     scorePlayerOne: number;
@@ -7,6 +8,8 @@ interface State {
     activePlayer: number;
     kindPlayerOne: string;
     kindPlayerTwo: string;
+    colorPlayerOne: string;
+    colorPlayerTwo: string;
     makeMoveResult: string;
     board: Piece[];
     validMoves: Moves[];
@@ -20,6 +23,8 @@ export const useApiStore = defineStore('api', {
            activePlayer:0,
            kindPlayerOne:"",
            kindPlayerTwo:"",
+           colorPlayerOne:"",
+           colorPlayerTwo:"",
            makeMoveResult: "",
            board: [],
            validMoves: []
@@ -37,6 +42,7 @@ export const useApiStore = defineStore('api', {
     actions: {
        updateValues() {
            this.fetchBoard();
+           this.fetchOptions();
            this.fetchValidMoves();
            this.fetchStats();
        },
@@ -48,13 +54,25 @@ export const useApiStore = defineStore('api', {
                             this.scorePlayerOne = data.scorePlayer1;
                             this.scorePlayerTwo = data.scorePlayer2;
                             this.activePlayer = data.activePlayer;
-                            this.kindPlayerOne = data.kindPlayerOne;
-                            this.kindPlayerTwo = data.kindPlayerTwo;
                         })
                         .catch(error => console.error( error ));
                 })
                 .catch(error => console.error( error ));
        },
+        async fetchOptions() {
+           await fetch('http://localhost:8080/game/options')
+               .then(response => {
+                   response.json()
+                       .then(data => {
+                           this.kindPlayerOne = data.kindPlayerOne;
+                           this.kindPlayerTwo = data.kindPlayerTwo;
+                           this.colorPlayerOne = data.colorPlayerOne;
+                           this.colorPlayerTwo = data.colorPlayerTwo;
+                       })
+                       .catch(error => console.error( error ));
+               })
+               .catch(error => console.error( error ));
+        },
         async fetchBoard() {
             await fetch('http://localhost:8080/game/board')
                 .then(response => {
