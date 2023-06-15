@@ -50,7 +50,7 @@
 
 <style scoped>
 * {
-    outline: dotted red;
+  outline: dotted red;
 }
 
 #main {
