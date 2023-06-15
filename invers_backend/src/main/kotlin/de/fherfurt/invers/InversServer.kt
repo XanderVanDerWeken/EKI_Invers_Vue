@@ -52,6 +52,7 @@ fun Application.restApplicationModule() {
         allowMethod(HttpMethod.Delete)
         allowMethod(HttpMethod.Post)
         allowMethod(HttpMethod.Get)
+        allowMethod(HttpMethod.Put)
         allowHeader(HttpHeaders.Authorization)
         anyHost()
     }
