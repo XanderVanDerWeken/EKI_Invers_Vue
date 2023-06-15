@@ -29,21 +29,15 @@ object Game {
         this.currentPlayer = 1
     }
 
-    fun setPlayer(playerNum: Int, kind: String) {
-        if(playerNum == 0) {
-            player1 = this.createNewPlayer(player1, kind)
+    fun changePlayer(playerNum: Int) {
+        var playerToChange = if(playerNum == 0) player1
+            else player2
+        when(playerToChange.playerKind) {
+            UserPlayer.userPayerKind -> playerToChange = ComPlayer(playerToChange)
+            ComPlayer.aiPlayerKind -> playerToChange = UserPlayer(playerToChange)
         }
-        else if(playerNum == 1) {
-            player2 = this.createNewPlayer(player2, kind)
-        }
-    }
-
-    private fun createNewPlayer(player: Player, kind: String) : Player {
-        return if(kind == "ai") {
-            ComPlayer(player.piece, player.dottedPiece)
-        } else {
-            UserPlayer(player.piece, player.dottedPiece)
-        }
+        if(playerNum == 0) player1 = playerToChange
+            else player2 = playerToChange
     }
 
     /**

@@ -17,6 +17,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
             if(dottedPiece == Piece.RED_DOT) Piece.YELLOW_DOT
             else Piece.YELLOW_DOT
 
+    constructor(oldPlayer: Player) : this(oldPlayer.piece, oldPlayer.dottedPiece)
+
     companion object {
         const val aiPlayerKind = "AI Player"
         const val maxDepth = 3
