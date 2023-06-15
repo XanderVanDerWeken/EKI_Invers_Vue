@@ -14,8 +14,6 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, 
         const val userPayerKind = "User Player"
     }
 
-    constructor(oldPlayer: Player) : this(oldPlayer.piece, oldPlayer.dottedPiece)
-
     private var nextMove: MoveInstruction? = null
 
     private val lock = Any()
