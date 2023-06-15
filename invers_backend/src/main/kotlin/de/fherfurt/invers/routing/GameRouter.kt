@@ -42,7 +42,7 @@ object GameRouter {
                 call.respond(HttpStatusCode.OK, "Game was resetted")
             }
             get("/stats") {
-                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer)
+                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer, Game.kindPlayer1, Game.kindPlayer2)
                 call.respond(result)
             }
             get("/board") {
@@ -61,6 +61,8 @@ object GameRouter {
     private data class Score(
         val scorePlayer1: Int,
         val scorePlayer2: Int,
-        val activePlayer: Int
+        val activePlayer: Int,
+        val playerOneKind: String,
+        val playerTwoKind: String
     )
 }

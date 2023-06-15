@@ -10,6 +10,7 @@ import de.fherfurt.invers.core.Piece
 abstract class Player protected constructor(
     val piece: Piece,
     val dottedPiece: Piece,
+    val playerKind: String
 ) {
 
     /**

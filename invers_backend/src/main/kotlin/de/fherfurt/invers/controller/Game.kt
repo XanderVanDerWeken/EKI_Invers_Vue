@@ -40,6 +40,12 @@ object Game {
     val scorePlayer2
         get() = board.getPlayerScore( player2 )
 
+    val kindPlayer1
+        get() = player1.playerKind
+
+    val kindPlayer2
+        get() = player2.playerKind
+
     /**
      * Returns the dottedPiece of the Opponent
      */

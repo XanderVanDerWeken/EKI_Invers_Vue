@@ -8,7 +8,11 @@ import de.fherfurt.invers.core.Piece
  * @see Player
  * @author Xander Van der Weken
  */
-class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece){
+class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, userPayerKind){
+
+    companion object {
+        const val userPayerKind = "User Player"
+    }
 
     private var nextMove: MoveInstruction? = null
 
