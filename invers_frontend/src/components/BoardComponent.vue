@@ -113,7 +113,6 @@ export default defineComponent({
 * {
   --backColRed: red;
   --backColYel: yellow;
-  --backColEmp: white;
   --backColFlip: black;
   --backColValidMove: green;
   --backColInvalidMove: red;
@@ -182,10 +181,6 @@ td {
   display: none;
 }
 
-.empty-cell {
-    background-color: var(--backColEmp);
-}
-
 .red,
 .red_dot {
   background-color: var(--backColRed);
@@ -203,8 +198,8 @@ td {
 
 .red_dot,
 .yellow_dot {
+  border: 5px solid var(--backColFlip);
   background-image: radial-gradient(circle, transparent 30%, var(--backColFlip) 40%);
-  padding: 5px;
 }
 
 .validMove {
