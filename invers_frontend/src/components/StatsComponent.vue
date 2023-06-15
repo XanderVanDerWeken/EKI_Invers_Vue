@@ -3,6 +3,8 @@
     <h2>Statistics</h2>
     <p>Player {{ activePlayer() }} turn</p>
     <p>{{ scorePlayerOne() }} : {{ scorePlayerTwo() }} ({{ difference }})</p>
+    <p>Player 1 is {{ kindPlayerOne() }}</p>
+    <p>Player 2 is {{ kindPlayerTwo() }}</p>
   </div>
 </template>
 
@@ -24,11 +26,19 @@ export default defineComponent({
     function activePlayer(): number {
       return apiStore.activePlayer;
     }
+    function kindPlayerOne(): string {
+      return apiStore.kindPlayerOne;
+    }
+    function kindPlayerTwo(): string {
+      return apiStore.kindPlayerTwo;
+    }
 
     return {
       scorePlayerOne,
       scorePlayerTwo,
-      activePlayer
+      activePlayer,
+      kindPlayerOne,
+      kindPlayerTwo
     }
   },
   computed: {

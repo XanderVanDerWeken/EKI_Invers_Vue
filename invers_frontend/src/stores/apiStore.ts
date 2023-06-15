@@ -5,6 +5,8 @@ interface State {
     scorePlayerOne: number;
     scorePlayerTwo: number;
     activePlayer: number;
+    kindPlayerOne: string;
+    kindPlayerTwo: string;
     makeMoveResult: string;
     board: Piece[];
     validMoves: Moves[];
@@ -16,6 +18,8 @@ export const useApiStore = defineStore('api', {
            scorePlayerOne:0,
            scorePlayerTwo:0,
            activePlayer:0,
+           kindPlayerOne:"",
+           kindPlayerTwo:"",
            makeMoveResult: "",
            board: [],
            validMoves: []
@@ -44,6 +48,8 @@ export const useApiStore = defineStore('api', {
                             this.scorePlayerOne = data.scorePlayer1;
                             this.scorePlayerTwo = data.scorePlayer2;
                             this.activePlayer = data.activePlayer;
+                            this.kindPlayerOne = data.kindPlayerOne;
+                            this.kindPlayerTwo = data.kindPlayerTwo;
                         })
                         .catch(error => console.error( error ));
                 })

@@ -62,7 +62,7 @@ object GameRouter {
         val scorePlayer1: Int,
         val scorePlayer2: Int,
         val activePlayer: Int,
-        val playerOneKind: String,
-        val playerTwoKind: String
+        val kindPlayerOne: String,
+        val kindPlayerTwo: String
     )
 }
