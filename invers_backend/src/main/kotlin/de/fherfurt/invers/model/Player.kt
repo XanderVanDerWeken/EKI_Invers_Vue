@@ -10,8 +10,10 @@ import de.fherfurt.invers.core.Piece
 abstract class Player protected constructor(
     val piece: Piece,
     val dottedPiece: Piece,
-    val playerKind: String
+    val playerKind: String,
 ) {
+    val playerColor
+        get() = piece.text
 
     /**
      * Abstract Method to make a Move

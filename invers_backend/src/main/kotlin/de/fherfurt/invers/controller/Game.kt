@@ -46,6 +46,12 @@ object Game {
     val kindPlayer2
         get() = player2.playerKind
 
+    val colorPlayer1
+        get() = player1.playerColor
+
+    val colorPlayer2
+        get() = player2.playerColor
+
     /**
      * Returns the dottedPiece of the Opponent
      */
