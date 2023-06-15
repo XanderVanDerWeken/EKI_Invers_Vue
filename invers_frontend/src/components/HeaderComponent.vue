@@ -17,10 +17,10 @@ export default defineComponent({
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 header {
-    font-family: 'Roboto', sans-serif;    
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-    font-weight: 900;
+  font-weight: 900;
 }
 </style>

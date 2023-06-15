@@ -111,12 +111,12 @@ export default defineComponent({
 
 <style scoped>
 * {
-    --backColRed: red;
-    --backColYel: yellow;
-    --backColEmp: white;
-    --backColFlip: black;
-    --backColValidMove: green;
-    --backColInvalidMove: red;
+  --backColRed: red;
+  --backColYel: yellow;
+  --backColEmp: white;
+  --backColFlip: black;
+  --backColValidMove: green;
+  --backColInvalidMove: red;
 }
 
 td {
@@ -179,7 +179,7 @@ td {
 
 
 .border {
-    display: none;
+  display: none;
 }
 
 .empty-cell {
@@ -188,22 +188,22 @@ td {
 
 .red,
 .red_dot {
-    background-color: var(--backColRed);
+  background-color: var(--backColRed);
 }
 
 .yellow,
 .yellow_dot {
-    background-color: var(--backColYel);
+  background-color: var(--backColYel);
 }
 
 .red,
 .yellow {
-    border: 5px solid var(--backColFlip);
+  border: 5px solid var(--backColFlip);
 } 
 
 .red_dot,
 .yellow_dot {
-    background-image: radial-gradient(circle, transparent 30%, var(--backColFlip) 40%);
+  background-image: radial-gradient(circle, transparent 30%, var(--backColFlip) 40%);
   padding: 5px;
 }
 
