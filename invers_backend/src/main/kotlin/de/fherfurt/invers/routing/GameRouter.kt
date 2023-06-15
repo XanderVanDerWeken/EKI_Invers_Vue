@@ -42,7 +42,20 @@ object GameRouter {
                 call.respond(HttpStatusCode.OK, "Game was resetted")
             }
             get("/stats") {
-                val result = Score(Game.scorePlayer1, Game.scorePlayer2, Game.currentPlayer, Game.kindPlayer1, Game.kindPlayer2)
+                val result = Score(
+                    scorePlayer1 = Game.scorePlayer1,
+                    scorePlayer2 = Game.scorePlayer2,
+                    activePlayer = Game.currentPlayer
+                )
+                call.respond(result)
+            }
+            get("/options") {
+                val result = Options(
+                    kindPlayerOne =  Game.kindPlayer1,
+                    kindPlayerTwo =  Game.kindPlayer2,
+                    colorPlayerOne =  Game.colorPlayer1,
+                    colorPlayerTwo =  Game.colorPlayer2
+                )
                 call.respond(result)
             }
             get("/board") {
@@ -61,8 +74,14 @@ object GameRouter {
     private data class Score(
         val scorePlayer1: Int,
         val scorePlayer2: Int,
-        val activePlayer: Int,
+        val activePlayer: Int
+    )
+
+    @Serializable
+    private data class Options(
         val kindPlayerOne: String,
-        val kindPlayerTwo: String
+        val kindPlayerTwo: String,
+        val colorPlayerOne: String,
+        val colorPlayerTwo: String
     )
 }
