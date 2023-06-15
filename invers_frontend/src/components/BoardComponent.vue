@@ -120,8 +120,8 @@ export default defineComponent({
 }
 
 td {
-    width: 50px;
-    height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 #validMoveText {
@@ -204,6 +204,7 @@ td {
 .red_dot,
 .yellow_dot {
     background-image: radial-gradient(circle, transparent 30%, var(--backColFlip) 40%);
+  padding: 5px;
 }
 
 .validMove {
