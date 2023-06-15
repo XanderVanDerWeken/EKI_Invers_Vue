@@ -2,6 +2,7 @@ package de.fherfurt.invers.controller
 
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.ComPlayer
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
 import de.fherfurt.invers.view.Board
@@ -13,8 +14,8 @@ import de.fherfurt.invers.view.Board
  * @author Xander Van der Weken
  */
 object Game {
-    private val player1: Player
-    private val player2: Player
+    private var player1: Player
+    private var player2: Player
     var activePlayer: Player
     private var board: Board
     var currentPlayer: Int
@@ -26,6 +27,23 @@ object Game {
         this.activePlayer = this.player1
         this.board = Board()
         this.currentPlayer = 1
+    }
+
+    fun setPlayer(playerNum: Int, kind: String) {
+        if(playerNum == 0) {
+            player1 = this.createNewPlayer(player1, kind)
+        }
+        else if(playerNum == 1) {
+            player2 = this.createNewPlayer(player2, kind)
+        }
+    }
+
+    private fun createNewPlayer(player: Player, kind: String) : Player {
+        return if(kind == "ai") {
+            ComPlayer(player.piece, player.dottedPiece)
+        } else {
+            UserPlayer(player.piece, player.dottedPiece)
+        }
     }
 
     /**

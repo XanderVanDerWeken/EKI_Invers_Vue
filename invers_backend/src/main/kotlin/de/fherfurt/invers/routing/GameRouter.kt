@@ -62,6 +62,13 @@ object GameRouter {
                 val board = Game.board().toList()
                 call.respond(HttpStatusCode.OK, board)
             }
+            put("/changePlayer/{playerNum}/{kind}") {
+                val playerNum = call.parameters["playerNum"]!!.toInt()
+                val kind = call.parameters["kind"]!!
+
+                Game.setPlayer(playerNum, kind)
+                call.respond(HttpStatusCode.OK)
+            }
         }
     }
 
