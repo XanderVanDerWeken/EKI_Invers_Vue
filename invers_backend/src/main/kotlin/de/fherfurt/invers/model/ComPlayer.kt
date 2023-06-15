@@ -10,7 +10,7 @@ import de.fherfurt.invers.view.Board
  * @see Player
  * @author Xander Van der Weken
  */
-class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece) {
+class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, aiPlayerKind) {
 
     private val opponentDottedPiece: Piece
         get() =
@@ -18,7 +18,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece) {
             else Piece.YELLOW_DOT
 
     companion object {
-        val maxDepth = 3
+        const val aiPlayerKind = "AI Player"
+        const val maxDepth = 3
     }
 
     /**

@@ -4,6 +4,11 @@
     <button v-on:click="startGame()">Start Game</button>
     <button v-on:click="resetBoard()">Reset Game</button>
   </div>
+  <div>
+    <h2>Options</h2>
+    <p>Player 1 ({{ colorPlayerOne() }}) is {{ kindPlayerOne() }}</p>
+    <p>Player 2 ({{ colorPlayerTwo() }}) is {{ kindPlayerTwo() }}</p>
+  </div>
 </template>
 
 <script lang="ts">
@@ -25,9 +30,26 @@ export default defineComponent({
       alert("Game has been reset.");
     }
 
+    function kindPlayerOne(): string {
+      return apiStore.kindPlayerOne;
+    }
+    function kindPlayerTwo(): string {
+      return apiStore.kindPlayerTwo;
+    }
+    function colorPlayerOne(): string {
+      return apiStore.colorPlayerOne;
+    }
+    function colorPlayerTwo(): string {
+      return apiStore.colorPlayerTwo;
+    }
+
     return {
       startGame,
-      resetBoard
+      resetBoard,
+      kindPlayerOne,
+      kindPlayerTwo,
+      colorPlayerOne,
+      colorPlayerTwo
     };
   },
 })

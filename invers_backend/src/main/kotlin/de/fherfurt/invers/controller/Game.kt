@@ -2,6 +2,7 @@ package de.fherfurt.invers.controller
 
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
+import de.fherfurt.invers.model.ComPlayer
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
 import de.fherfurt.invers.view.Board
@@ -13,8 +14,8 @@ import de.fherfurt.invers.view.Board
  * @author Xander Van der Weken
  */
 object Game {
-    private val player1: Player
-    private val player2: Player
+    private var player1: Player
+    private var player2: Player
     var activePlayer: Player
     private var board: Board
     var currentPlayer: Int
@@ -39,6 +40,18 @@ object Game {
      */
     val scorePlayer2
         get() = board.getPlayerScore( player2 )
+
+    val kindPlayer1
+        get() = player1.playerKind
+
+    val kindPlayer2
+        get() = player2.playerKind
+
+    val colorPlayer1
+        get() = player1.playerColor
+
+    val colorPlayer2
+        get() = player2.playerColor
 
     /**
      * Returns the dottedPiece of the Opponent
