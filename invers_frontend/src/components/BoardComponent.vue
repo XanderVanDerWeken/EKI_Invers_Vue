@@ -55,7 +55,43 @@
   <p id="validMoveText">{{getIfMoveWasValid()}}</p>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { computed } from "vue";
+import { useApiStore } from "@/stores/apiStore";
+
+const apiStore = useApiStore();
+
+const makeMove = (direction: string, index: number) => {
+  apiStore.postMove( direction, index );
+};
+
+const getIfMoveWasValid = () => {
+  if(apiStore.makeMoveResult === 'Invalid Move') {
+    return `${apiStore.makeMoveResult} !!`;
+  }
+  else {
+    return '';
+  }
+};
+
+const getValidMoves = () => apiStore.validMoves;
+
+const getValidDirection = (direction: string, index: number) => {
+  const result = getValidMoves().find((move) => move.direction === direction);
+  if(result != undefined) {
+    if( result.indexes.includes(index) ) {
+      return "validMove";
+    }
+  }
+  return "invalidMove";
+};
+
+const matrix = computed(() => {
+  return apiStore.boardMatrix;
+});
+</script>
+
+<!--<script lang="ts">
 import { defineComponent } from 'vue'
 import type { Piece } from '@/models/Piece'
 import { useApiStore } from "@/stores/apiStore";
@@ -107,7 +143,7 @@ export default defineComponent({
     },
   }
 });
-</script>
+</script>-->
 
 <style scoped>
 * {
