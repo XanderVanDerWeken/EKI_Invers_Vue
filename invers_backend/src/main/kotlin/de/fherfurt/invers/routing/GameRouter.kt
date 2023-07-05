@@ -1,6 +1,7 @@
 package de.fherfurt.invers.routing
 
 import de.fherfurt.invers.controller.Game
+import de.fherfurt.invers.core.Piece
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -40,6 +41,28 @@ object GameRouter {
                 gameScope.cancel()
                 Game.resetBoard()
                 call.respond(HttpStatusCode.OK, "Game was resetted")
+            }
+            get("/periodicUpdate") {
+                val stats = Score(
+                    scorePlayer1 = Game.scorePlayer1,
+                    scorePlayer2 = Game.scorePlayer2,
+                    activePlayer = Game.currentPlayer
+                )
+                val options = Options(
+                    kindPlayerOne = Game.kindPlayer1,
+                    kindPlayerTwo = Game.kindPlayer2,
+                    colorPlayerOne = Game.colorPlayer1,
+                    colorPlayerTwo = Game.colorPlayer2
+                )
+                val board = Game.board().toList()
+
+                val result = PeriodicUpdate(
+                    stats = stats,
+                    options = options,
+                    board = board
+                )
+
+                call.respond(result)
             }
             get("/stats") {
                 val result = Score(
@@ -83,5 +106,12 @@ object GameRouter {
         val kindPlayerTwo: String,
         val colorPlayerOne: String,
         val colorPlayerTwo: String
+    )
+
+    @Serializable
+    private data class PeriodicUpdate(
+        val stats: Score,
+        val options: Options,
+        val board: List<Piece>
     )
 }
