@@ -31,16 +31,16 @@ export default defineComponent({
     }
 
     function kindPlayerOne(): string {
-      return apiStore.kindPlayerOne;
+      return apiStore.options.kindPlayerOne;
     }
     function kindPlayerTwo(): string {
-      return apiStore.kindPlayerTwo;
+      return apiStore.options.kindPlayerTwo;
     }
     function colorPlayerOne(): string {
-      return apiStore.colorPlayerOne;
+      return apiStore.options.colorPlayerOne;
     }
     function colorPlayerTwo(): string {
-      return apiStore.colorPlayerTwo;
+      return apiStore.options.colorPlayerTwo;
     }
 
     return {

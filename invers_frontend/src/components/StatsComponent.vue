@@ -16,13 +16,13 @@ export default defineComponent({
     const apiStore = useApiStore();
 
     function scorePlayerOne(): number {
-      return apiStore.scorePlayerOne;
+      return apiStore.stats.scorePlayerOne;
     }
     function scorePlayerTwo(): number {
-      return apiStore.scorePlayerTwo;
+      return apiStore.stats.scorePlayerTwo;
     }
     function activePlayer(): number {
-      return apiStore.activePlayer;
+      return apiStore.stats.activePlayer;
     }
 
     return {
