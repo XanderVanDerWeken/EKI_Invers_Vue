@@ -123,8 +123,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      * @param weight weight to look for
      * @return move with given weight.
      */
-    private fun getMoveWithWeight(node: Node, weight: Int) : Move {
-        var move: Move? = null
+    private fun getMoveWithWeight(root: Node, weight: Int) : Move {
+        /*var move: Move? = null
 
         node.childNodes.forEach { child ->
             if (child.weight == weight) {
@@ -132,6 +132,18 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
             }
         }
 
-        return move!!
+        return move!!*/
+
+        val allPossibleMoves: List<Node> = root.childNodes.filter { child ->
+            child.weight == weight
+        }
+
+        val bestNode = if(allPossibleMoves.size > 1) {
+            allPossibleMoves.random()
+        }
+        else {
+            allPossibleMoves[0]
+        }
+        return bestNode.moves[0]
     }
 }
