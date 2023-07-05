@@ -5,10 +5,6 @@
   </header>
 </template>
 
-<script setup lang="ts">
-
-</script>
-
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
