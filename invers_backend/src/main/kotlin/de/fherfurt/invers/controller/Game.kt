@@ -14,8 +14,8 @@ import de.fherfurt.invers.view.Board
  * @author Xander Van der Weken
  */
 object Game {
-    private var player1: Player
-    private var player2: Player
+    private val player1: Player
+    private val player2: Player
     var activePlayer: Player
     private var board: Board
     var currentPlayer: Int
@@ -23,7 +23,7 @@ object Game {
 
     init {
         this.player1 = UserPlayer( Piece.RED, Piece.RED_DOT )
-        this.player2 = UserPlayer( Piece.YELLOW, Piece.YELLOW_DOT )
+        this.player2 = ComPlayer( Piece.YELLOW, Piece.YELLOW_DOT )
         this.activePlayer = this.player1
         this.board = Board()
         this.currentPlayer = 1
@@ -73,6 +73,8 @@ object Game {
 
             // Switch Player
             switchPlayer()
+
+            Thread.sleep(1000)
         }
     }
 
