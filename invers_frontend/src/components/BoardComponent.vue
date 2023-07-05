@@ -55,57 +55,39 @@
   <p id="validMoveText">{{getIfMoveWasValid()}}</p>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import type { Piece } from '@/models/Piece'
+<script setup lang="ts">
+import { computed } from "vue";
 import { useApiStore } from "@/stores/apiStore";
-import type { Moves } from "@/stores/apiStore";
 
-export default defineComponent({
-  name: "Board",
-  setup() {
-    const apiStore = useApiStore();
+const apiStore = useApiStore();
 
-    function makeMove( direction: string, index: number ) {
-      apiStore.postMove( direction, index );
-    }
+const makeMove = (direction: string, index: number) => {
+  apiStore.postMove( direction, index );
+};
 
-    function getValidMoves(): Moves[] {
-      return apiStore.validMoves;
-    }
-
-    function getIfMoveWasValid(): string {
-      if(apiStore.makeMoveResult === 'Invalid Move') {
-        return `${apiStore.makeMoveResult} !!`;
-      }
-      else {
-        return '';
-      }
-    }
-
-    return {
-      apiStore,
-      makeMove,
-      getValidMoves,
-      getIfMoveWasValid
-    }
-  },
-  computed: {
-    matrix() : Array<Array<Piece>> {
-      return this.apiStore.boardMatrix;
-    },
-  },
-  methods: {
-    getValidDirection(direction: string, index: number) : string{
-      const result = this.getValidMoves().find((move) => move.direction === direction);
-      if(result != undefined) {
-        if( result.indexes.includes(index) ) {
-          return "validMove";
-        }
-      }
-      return "invalidMove";
-    },
+const getIfMoveWasValid = () => {
+  if(apiStore.makeMoveResult === 'Invalid Move') {
+    return `${apiStore.makeMoveResult} !!`;
   }
+  else {
+    return '';
+  }
+};
+
+const getValidMoves = () => apiStore.validMoves;
+
+const getValidDirection = (direction: string, index: number) => {
+  const result = getValidMoves().find((move) => move.direction === direction);
+  if(result != undefined) {
+    if( result.indexes.includes(index) ) {
+      return "validMove";
+    }
+  }
+  return "invalidMove";
+};
+
+const matrix = computed(() => {
+  return apiStore.boardMatrix;
 });
 </script>
 

@@ -11,48 +11,25 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent} from 'vue'
-import { useApiStore } from '@/stores/apiStore';
+<script setup lang="ts">
+import { useApiStore } from "@/stores/apiStore";
 
-export default defineComponent({
-  name: 'ControlPanel',
-  setup() {
-    const apiStore = useApiStore();
+const apiStore = useApiStore();
 
-    function startGame() {
-      apiStore.playGame();
-      alert("Game has been started");
-    }
+const startGame = () => {
+  apiStore.playGame();
+  alert("Game has been started");
+};
 
-    function resetBoard() {
-      apiStore.resetGame();
-      alert("Game has been reset.");
-    }
+const resetBoard = () => {
+  apiStore.resetGame();
+  alert("Game has been reset");
+};
 
-    function kindPlayerOne(): string {
-      return apiStore.kindPlayerOne;
-    }
-    function kindPlayerTwo(): string {
-      return apiStore.kindPlayerTwo;
-    }
-    function colorPlayerOne(): string {
-      return apiStore.colorPlayerOne;
-    }
-    function colorPlayerTwo(): string {
-      return apiStore.colorPlayerTwo;
-    }
-
-    return {
-      startGame,
-      resetBoard,
-      kindPlayerOne,
-      kindPlayerTwo,
-      colorPlayerOne,
-      colorPlayerTwo
-    };
-  },
-})
+const colorPlayerOne = () => apiStore.options.colorPlayerOne;
+const colorPlayerTwo = () => apiStore.options.colorPlayerTwo;
+const kindPlayerOne = () => apiStore.options.kindPlayerOne;
+const kindPlayerTwo = () => apiStore.options.kindPlayerTwo;
 </script>
 
 <style scoped>

@@ -1,34 +1,43 @@
 import { defineStore } from "pinia";
 import type {Piece} from "@/models/Piece";
-import {jsx} from "vue/jsx-runtime";
+
+const baseUrl: string = "http://localhost:8080";
 
 interface State {
-    scorePlayerOne: number;
-    scorePlayerTwo: number;
-    activePlayer: number;
-    kindPlayerOne: string;
-    kindPlayerTwo: string;
-    colorPlayerOne: string;
-    colorPlayerTwo: string;
-    makeMoveResult: string;
-    board: Piece[];
-    validMoves: Moves[];
+    stats: {
+        scorePlayerOne: number,
+        scorePlayerTwo: number,
+        activePlayer: number
+    },
+    options: {
+        kindPlayerOne: string,
+        kindPlayerTwo: string,
+        colorPlayerOne: string,
+        colorPlayerTwo: string
+    },
+    board: Piece[],
+    makeMoveResult: string,
+    validMoves: Moves[]
 }
 
 export const useApiStore = defineStore('api', {
    state: (): State => {
        return {
-           scorePlayerOne:0,
-           scorePlayerTwo:0,
-           activePlayer:0,
-           kindPlayerOne:"",
-           kindPlayerTwo:"",
-           colorPlayerOne:"",
-           colorPlayerTwo:"",
-           makeMoveResult: "",
+           stats: {
+               scorePlayerOne:0,
+               scorePlayerTwo:0,
+               activePlayer:0
+           },
+           options: {
+               kindPlayerOne:"",
+               kindPlayerTwo:"",
+               colorPlayerOne:"",
+               colorPlayerTwo:""
+           },
            board: [],
+           makeMoveResult:"",
            validMoves: []
-       }
+       };
    },
     getters: {
         boardMatrix(): Array<Array<Piece>> {
@@ -41,92 +50,66 @@ export const useApiStore = defineStore('api', {
     },
     actions: {
        updateValues() {
-           this.fetchBoard();
-           this.fetchOptions();
+           this.fetchPeriodically();
            this.fetchValidMoves();
-           this.fetchStats();
        },
-       async fetchStats() {
-            await fetch('http://localhost:8080/game/stats')
-                .then(response => {
-                    response.json()
-                        .then(data => {
-                            this.scorePlayerOne = data.scorePlayer1;
-                            this.scorePlayerTwo = data.scorePlayer2;
-                            this.activePlayer = data.activePlayer;
-                        })
-                        .catch(error => console.error( error ));
-                })
-                .catch(error => console.error( error ));
-       },
-        async fetchOptions() {
-           await fetch('http://localhost:8080/game/options')
-               .then(response => {
-                   response.json()
-                       .then(data => {
-                           this.kindPlayerOne = data.kindPlayerOne;
-                           this.kindPlayerTwo = data.kindPlayerTwo;
-                           this.colorPlayerOne = data.colorPlayerOne;
-                           this.colorPlayerTwo = data.colorPlayerTwo;
-                       })
-                       .catch(error => console.error( error ));
-               })
-               .catch(error => console.error( error ));
-        },
-        async fetchBoard() {
-            await fetch('http://localhost:8080/game/board')
-                .then(response => {
-                    response.json()
-                        .then(data => {
-                            this.board = data;
-                        })
-                        .catch(error => console.error( error ))
-                })
-                .catch(error => console.error( error ));
+        async fetchPeriodically() {
+            try {
+                const response = await fetch(`${baseUrl}/game/periodicUpdate`);
+                const data = await response.json();
+                // Setting Stats
+                this.stats.scorePlayerOne = data.stats.scorePlayer1;
+                this.stats.scorePlayerTwo = data.stats.scorePlayer2;
+                this.stats.activePlayer = data.stats.activePlayer;
+
+                // Setting Options
+                this.options.kindPlayerOne = data.options.kindPlayerOne;
+                this.options.kindPlayerTwo = data.options.kindPlayerTwo;
+                this.options.colorPlayerOne = data.options.colorPlayerOne;
+                this.options.colorPlayerTwo = data.options.colorPlayerTwo;
+
+                // Setting Board
+                this.board = data.board;
+
+            } catch (error) {
+                console.error( error );
+            }
         },
         async fetchValidMoves() {
-            await fetch('http://localhost:8080/players/possibleMoves')
-                .then(response => {
-                    response.json()
-                        .then(data => {
-                            this.validMoves = data as Moves[];
-                        })
-                        .catch(error => console.error( error ));
-                })
-                .catch(error => console.error( error ));
+            try {
+                const response = await fetch(`${baseUrl}/players/possibleMoves`);
+                this.validMoves= await response.json();
+            } catch (error) {
+                console.error( error );
+            }
         },
         async postMove( direction: string, index: number ) {
-            await fetch(`http://localhost:8080/players/makeMove/${direction}/${index}`, {
-                method: 'POST',
-            }).then(response => {
-                if(!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                response.text()
-                    .then(data => {
-                        this.makeMoveResult = data;
-                    })
-                    .catch(error => console.error( error ));
-            })
-            .catch(error => console.error( error ));
+            try {
+                const response = await fetch(`${baseUrl}/players/makeMove/${direction}/${index}`, {
+                    method: 'POST',
+                });
+                this.makeMoveResult = await response.text()
+            } catch (error) {
+                console.error( error );
+            }
         },
         async playGame() {
-            await fetch('http://localhost:8080/game/play', {
-                method: 'POST'
-            })
-                .then(response => {
-
-                })
-                .catch(error => console.error( error ));
+            try {
+                await fetch(`${baseUrl}/game/play`, {
+                    method: 'POST',
+                });
+            } catch (error) {
+                console.error( error );
+            }
         },
         async resetGame() {
-           await fetch('http://localhost:8080/game/reset', {
-               method: 'POST'
-           })
-               .then(response => {
-                   
-               })
-               .catch(error => console.error( error ));
+            try {
+                await fetch(`${baseUrl}/game/reset`, {
+                    method: 'POST',
+                })
+            } catch (error) {
+                console.error( error );
+            }
        }
     }
 });

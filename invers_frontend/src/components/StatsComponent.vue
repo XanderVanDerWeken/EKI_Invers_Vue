@@ -6,36 +6,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script setup lang="ts">
+import { computed } from "vue";
 import { useApiStore } from "@/stores/apiStore";
 
-export default defineComponent({
-  name: "Stats",
-  setup() {
-    const apiStore = useApiStore();
+const apiStore = useApiStore();
 
-    function scorePlayerOne(): number {
-      return apiStore.scorePlayerOne;
-    }
-    function scorePlayerTwo(): number {
-      return apiStore.scorePlayerTwo;
-    }
-    function activePlayer(): number {
-      return apiStore.activePlayer;
-    }
+const activePlayer = () => apiStore.stats.activePlayer;
+const scorePlayerOne = () => apiStore.stats.scorePlayerOne;
+const scorePlayerTwo = () => apiStore.stats.scorePlayerTwo;
 
-    return {
-      scorePlayerOne,
-      scorePlayerTwo,
-      activePlayer
-    }
-  },
-  computed: {
-    difference(): number {
-      return this.scorePlayerOne() - this.scorePlayerTwo()
-    }
-  }
+const difference = computed(() => {
+  return apiStore.stats.scorePlayerOne - apiStore.stats.scorePlayerTwo;
 });
 </script>
 
