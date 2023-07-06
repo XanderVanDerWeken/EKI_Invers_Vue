@@ -18,6 +18,7 @@ object Game {
     private val player1: Player
     private val player2: Player
     var activePlayer: Player
+    var opponentPlayer: Player
     private var board: Board
     var currentPlayer: Int
         private set
@@ -26,6 +27,7 @@ object Game {
         this.player1 = UserPlayer( Piece.RED, Piece.RED_DOT )
         this.player2 = ComPlayer( Piece.YELLOW, Piece.YELLOW_DOT )
         this.activePlayer = this.player1
+        this.opponentPlayer = this.player2
         this.board = Board()
         this.currentPlayer = 1
     }
@@ -84,6 +86,7 @@ object Game {
                 } else {
                     activePlayer.usePiece()
                     board.applyMove(newMove)
+                    opponentPlayer.gainPiece()
                 }
             }
 
@@ -98,13 +101,15 @@ object Game {
      * Method to switch Players on active Player
      */
     private fun switchPlayer() {
-        activePlayer = if(activePlayer.piece == player1.piece) {
+        if(activePlayer.piece == player1.piece) {
             currentPlayer++
-            player2
+            activePlayer = player2
+            opponentPlayer = player1
         }
         else {
             currentPlayer--
-            player1
+            activePlayer = player1
+            opponentPlayer = player2
         }
     }
 
