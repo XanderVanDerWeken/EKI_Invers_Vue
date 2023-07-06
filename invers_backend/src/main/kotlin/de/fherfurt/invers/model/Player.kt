@@ -10,9 +10,10 @@ import de.fherfurt.invers.core.Piece
 abstract class Player protected constructor(
     val piece: Piece,
     val dottedPiece: Piece,
-    val playerKind: String,
-    protected var amountOfPiecesInHand: Int
+    val playerKind: String
 ) {
+    protected var amountOfPiecesInHand: Int = 1
+
     val playerColor
         get() = piece.text
 
