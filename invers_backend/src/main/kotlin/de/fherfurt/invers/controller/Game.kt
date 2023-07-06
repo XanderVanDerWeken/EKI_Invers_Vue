@@ -3,6 +3,7 @@ package de.fherfurt.invers.controller
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.ComPlayer
+import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 import de.fherfurt.invers.model.UserPlayer
 import de.fherfurt.invers.view.Board
@@ -114,12 +115,22 @@ object Game {
     /**
      * Method to check if a move is legal
      *
-     * @param index index to look for
-     * @param direction direction to look for
+     * @param move move to check for
      * @return true if legal, else false
      */
-    fun isLegalMove( index: Int, direction: Direction) : Boolean {
-        return this.board.isLegal(index, direction, opponentDottedPiece)
+    fun isLegalMove( move: MoveInstruction ) : Boolean {
+        return this.board.isLegal(move.index, move.direction, opponentDottedPiece)
+    }
+
+    /**
+     * Method to check if a Player would gain a Piece in a Move
+     *
+     * @param move move to check
+     * @param player player to check fo
+     * @return true if Player would gain a piece on that move, else false
+     */
+    fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
+        return this.board.wouldGainPiece( move, player )
     }
 
     /**
