@@ -3,6 +3,7 @@ package de.fherfurt.invers.view
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 
 /**
@@ -114,6 +115,19 @@ class Board {
         }
 
         /**
+         * Method to check if a Player would gain a piece on a move
+         *
+         * @param pieces pieces where to check
+         * @param move move to check for
+         * @param player player to check for
+         * @return true if a Piece would be gained, else false
+         */
+        fun wouldGainPiece(pieces: List<Piece>, move: MoveInstruction, player: Player) : Boolean {
+            val lastIndex = this.getLastIndex(move.direction, move.index)
+            return pieces[lastIndex] == player.piece || pieces[lastIndex] == player.dottedPiece
+        }
+
+        /**
          * Method to calculate the player Score
          *
          * @param pieces pieces where to get the score from
@@ -215,6 +229,17 @@ class Board {
      */
     fun isLegal(index: Int, direction: Direction, opponentDottedPiece: Piece): Boolean {
         return BoardUtils.isLegal(this.pieces, index, direction, opponentDottedPiece)
+    }
+
+    /**
+     * Method to check if a Player would gain a piece on a move
+     *
+     * @param move move to check for
+     * @param player player to check for
+     * @return true if a Piece would be gained, else false
+     */
+    fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
+        return BoardUtils.wouldGainPiece(this.pieces, move, player)
     }
 
     /**

@@ -1,5 +1,6 @@
 package de.fherfurt.invers.model
 
+import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Piece
 
 /**
@@ -28,9 +29,13 @@ class UserPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, 
         updateMove( null )
         while ( readMove() == null ) { }
 
-        return Move(
+        val moveIns = MoveInstruction(
             readMove()!!.direction,
-            readMove()!!.index,
+            readMove()!!.index
+        )
+
+        return Move(
+            moveIns,
             dottedPiece
         )
     }

@@ -46,7 +46,9 @@ object GameRouter {
                 val stats = Score(
                     scorePlayer1 = Game.scorePlayer1,
                     scorePlayer2 = Game.scorePlayer2,
-                    activePlayer = Game.currentPlayer
+                    activePlayer = Game.currentPlayer,
+                    piecesInHandPlayer1 = Game.piecesInHandPlayer1,
+                    piecesInHandPlayer2 = Game.piecesInHandPlayer2
                 )
                 val options = Options(
                     kindPlayerOne = Game.kindPlayer1,
@@ -68,7 +70,9 @@ object GameRouter {
                 val result = Score(
                     scorePlayer1 = Game.scorePlayer1,
                     scorePlayer2 = Game.scorePlayer2,
-                    activePlayer = Game.currentPlayer
+                    activePlayer = Game.currentPlayer,
+                    piecesInHandPlayer1 = Game.piecesInHandPlayer1,
+                    piecesInHandPlayer2 = Game.piecesInHandPlayer2
                 )
                 call.respond(result)
             }
@@ -97,7 +101,9 @@ object GameRouter {
     private data class Score(
         val scorePlayer1: Int,
         val scorePlayer2: Int,
-        val activePlayer: Int
+        val activePlayer: Int,
+        val piecesInHandPlayer1: Int,
+        val piecesInHandPlayer2: Int
     )
 
     @Serializable

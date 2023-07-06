@@ -7,7 +7,9 @@ interface State {
     stats: {
         scorePlayerOne: number,
         scorePlayerTwo: number,
-        activePlayer: number
+        activePlayer: number,
+        piecesInHandPlayerOne: number,
+        piecesInHandPlayerTwo: number
     },
     options: {
         kindPlayerOne: string,
@@ -26,7 +28,9 @@ export const useApiStore = defineStore('api', {
            stats: {
                scorePlayerOne:0,
                scorePlayerTwo:0,
-               activePlayer:0
+               activePlayer:0,
+               piecesInHandPlayerOne:0,
+               piecesInHandPlayerTwo:0
            },
            options: {
                kindPlayerOne:"",
@@ -61,6 +65,8 @@ export const useApiStore = defineStore('api', {
                 this.stats.scorePlayerOne = data.stats.scorePlayer1;
                 this.stats.scorePlayerTwo = data.stats.scorePlayer2;
                 this.stats.activePlayer = data.stats.activePlayer;
+                this.stats.piecesInHandPlayerOne = data.stats.piecesInHandPlayer1;
+                this.stats.piecesInHandPlayerTwo = data.stats.piecesInHandPlayer2;
 
                 // Setting Options
                 this.options.kindPlayerOne = data.options.kindPlayerOne;
