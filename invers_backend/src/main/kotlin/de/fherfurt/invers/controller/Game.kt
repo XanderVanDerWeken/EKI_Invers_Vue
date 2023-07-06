@@ -69,18 +69,18 @@ object Game {
     suspend fun playGame() {
         while(!isGameOver()) {
             // Let Player make Move
-            val newMove = activePlayer.makeMove()
-            val wouldGain = this.wouldGainPiece(newMove.instructions, activePlayer)
-            if(wouldGain) {
-                //activePlayer.usePiece()
-                board.applyMove(newMove)
-                //activePlayer.gainPiece()
+            if( activePlayer.hasPiecesInHand() ) {
+                val newMove = activePlayer.makeMove()
+                val wouldGain = this.wouldGainPiece(newMove.instructions, activePlayer)
+                if (wouldGain) {
+                    //activePlayer.usePiece()
+                    board.applyMove(newMove)
+                    //activePlayer.gainPiece()
+                } else {
+                    activePlayer.usePiece()
+                    board.applyMove(newMove)
+                }
             }
-            else {
-                activePlayer.usePiece()
-                board.applyMove(newMove)
-            }
-
 
             // Switch Player
             switchPlayer()
