@@ -14,6 +14,8 @@ abstract class Player protected constructor(
 ) {
     protected var amountOfPiecesInHand: Int = 1
 
+    fun getAmountOfPieces(): Int = amountOfPiecesInHand
+
     val playerColor
         get() = piece.text
 

@@ -42,6 +42,11 @@ object Game {
     val scorePlayer2
         get() = board.getPlayerScore( player2 )
 
+    val piecesInHandPlayer1
+        get() = player1.getAmountOfPieces()
+    val piecesInHandPlayer2
+        get() = player2.getAmountOfPieces()
+
     val kindPlayer1
         get() = player1.playerKind
 
