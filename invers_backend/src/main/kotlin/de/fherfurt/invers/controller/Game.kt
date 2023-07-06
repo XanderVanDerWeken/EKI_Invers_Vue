@@ -70,7 +70,17 @@ object Game {
         while(!isGameOver()) {
             // Let Player make Move
             val newMove = activePlayer.makeMove()
-            board.applyMove(newMove)
+            val wouldGain = this.wouldGainPiece(newMove.instructions, activePlayer)
+            if(wouldGain) {
+                //activePlayer.usePiece()
+                board.applyMove(newMove)
+                //activePlayer.gainPiece()
+            }
+            else {
+                activePlayer.usePiece()
+                board.applyMove(newMove)
+            }
+
 
             // Switch Player
             switchPlayer()
@@ -129,7 +139,7 @@ object Game {
      * @param player player to check fo
      * @return true if Player would gain a piece on that move, else false
      */
-    fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
+    private fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
         return this.board.wouldGainPiece( move, player )
     }
 

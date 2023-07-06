@@ -16,4 +16,7 @@ data class Move(
 ) {
     constructor(moveInstruction: MoveInstruction, piece: Piece)
             : this(moveInstruction.direction, moveInstruction.index, piece)
+
+    val instructions: MoveInstruction
+        get() = MoveInstruction( direction, index )
 }
