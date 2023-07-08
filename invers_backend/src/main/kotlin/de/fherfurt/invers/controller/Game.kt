@@ -68,8 +68,10 @@ object Game {
     suspend fun playGame() {
         while(!isGameOver()) {
             // Let Player make Move
-            val newMove = activePlayer.makeMove()
-            board.applyMove(newMove)
+            if(board.countPlayerPieces( activePlayer ) <= 18) {
+                val newMove = activePlayer.makeMove()
+                board.applyMove(newMove)
+            }
 
             // Switch Player
             switchPlayer()

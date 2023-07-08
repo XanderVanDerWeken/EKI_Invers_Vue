@@ -137,6 +137,12 @@ class Board {
             }
         }
 
+        fun countPlayerPieces( pieces: List<Piece>, player: Player ) : Int {
+            return pieces.count { piece ->
+                piece == player.piece || piece == player.dottedPiece
+            }
+        }
+
         /**
          * Method to check if a given Board of pieces is game over
          *
@@ -225,6 +231,10 @@ class Board {
      */
     fun getPlayerScore(player: Player) : Int {
         return BoardUtils.getPlayerScore(this.pieces, player)
+    }
+
+    fun countPlayerPieces( player: Player ) : Int {
+        return BoardUtils.countPlayerPieces( this.pieces, player )
     }
 
     /**
