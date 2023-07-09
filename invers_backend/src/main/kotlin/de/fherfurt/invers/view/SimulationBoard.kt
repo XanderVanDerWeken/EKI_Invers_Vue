@@ -34,8 +34,6 @@ class SimulationBoard (pieces: MutableList<Piece>, dottedPiece: Piece, opponentD
 
         fun getScoreWithStrategy(pieces: MutableList<Piece>, vararg countingPieces: Piece) : Int {
             var sum = 0
-            println(pieces.size)
-            println(strategy.size)
             for( i in 0 until pieces.size) {
                 if( countingPieces.contains( pieces[i] ) ) {
                     sum += strategy[i]
