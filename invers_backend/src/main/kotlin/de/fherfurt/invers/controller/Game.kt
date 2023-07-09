@@ -45,9 +45,9 @@ object Game {
         get() = board.getPlayerScore( player2 )
 
     val piecesInHandPlayer1
-        get() = player1.getAmountOfPieces()
+        get() = 19 - board.countPlayerPieces(player1)
     val piecesInHandPlayer2
-        get() = player2.getAmountOfPieces()
+        get() = 19 - board.countPlayerPieces(player2)
 
     val kindPlayer1
         get() = player1.playerKind
@@ -131,17 +131,6 @@ object Game {
      */
     fun isLegalMove( move: MoveInstruction ) : Boolean {
         return this.board.isLegal(move.index, move.direction, opponentDottedPiece)
-    }
-
-    /**
-     * Method to check if a Player would gain a Piece in a Move
-     *
-     * @param move move to check
-     * @param player player to check fo
-     * @return true if Player would gain a piece on that move, else false
-     */
-    private fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
-        return this.board.wouldGainPiece( move, player )
     }
 
     /**

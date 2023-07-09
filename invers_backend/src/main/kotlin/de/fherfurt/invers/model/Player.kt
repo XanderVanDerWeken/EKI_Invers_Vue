@@ -12,10 +12,6 @@ abstract class Player protected constructor(
     val dottedPiece: Piece,
     val playerKind: String
 ) {
-    protected var amountOfPiecesInHand: Int = 1
-
-    fun getAmountOfPieces(): Int = amountOfPiecesInHand
-
     val playerColor
         get() = piece.text
 
@@ -25,27 +21,4 @@ abstract class Player protected constructor(
      * @return move to be made and applied on the Board
      */
     abstract fun makeMove() : Move
-
-    /**
-     * Method to gain a new Piece in hand
-     */
-    fun gainPiece() {
-        this.amountOfPiecesInHand++
-    }
-
-    /**
-     * Method to use a Piece in hand
-     */
-    fun usePiece() {
-        this.amountOfPiecesInHand--
-    }
-
-    /**
-     * Method to see if has a Piece in hand
-     *
-     * @return true if more then 0
-     */
-    fun hasPiecesInHand() : Boolean {
-        return this.amountOfPiecesInHand > 0
-    }
 }

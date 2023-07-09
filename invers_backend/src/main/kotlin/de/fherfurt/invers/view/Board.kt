@@ -145,9 +145,9 @@ class Board {
          * @param countingPiece countingPiece which to count
          * @return score of counted Piece
          */
-        fun countPieces( pieces: List<Piece>, countingPiece: Piece ) : Int {
+        fun countPieces( pieces: List<Piece>, vararg countingPiece: Piece ) : Int {
             return pieces.count { piece ->
-                piece == countingPiece
+                countingPiece.contains( piece )
             }
         }
 
@@ -238,17 +238,6 @@ class Board {
     }
 
     /**
-     * Method to check if a Player would gain a piece on a move
-     *
-     * @param move move to check for
-     * @param player player to check for
-     * @return true if a Piece would be gained, else false
-     */
-    fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
-        return BoardUtils.wouldGainPiece(this.pieces, move, player)
-    }
-
-    /**
      * Method to calculate the player Score
      *
      * @param player player for which to calculate the score
@@ -258,8 +247,8 @@ class Board {
         return BoardUtils.getPlayerScore(this.pieces, player)
     }
 
-    fun countPlayerPieces( player: Player ) : Int {
-        return BoardUtils.countPlayerPieces( this.pieces, player )
+    fun countPlayerPieces(player: Player) : Int {
+        return countPieces(pieces, player.piece, player.dottedPiece)
     }
 
     /**
