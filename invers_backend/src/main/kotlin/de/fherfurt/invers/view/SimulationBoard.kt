@@ -31,6 +31,18 @@ class SimulationBoard (pieces: MutableList<Piece>, dottedPiece: Piece, opponentD
             min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf,
             min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf, min_inf,
         )
+
+        fun getScoreWithStrategy(pieces: MutableList<Piece>, vararg countingPieces: Piece) : Int {
+            var sum = 0
+            println(pieces.size)
+            println(strategy.size)
+            for( i in 0 until pieces.size) {
+                if( countingPieces.contains( pieces[i] ) ) {
+                    sum += strategy[i]
+                }
+            }
+            return sum
+        }
     }
 
     fun getBestMove(): Move {
@@ -127,7 +139,7 @@ class SimulationBoard (pieces: MutableList<Piece>, dottedPiece: Piece, opponentD
      * @param weight weight to look for
      * @return move with given weight.
      */
-    private fun getMoveWithWeight(root: Node, weight: Int) : Move {
+    private fun getMoveWithWeight(node: Node, weight: Int) : Move {
         /*var move: Move? = null
 
         node.childNodes.forEach { child ->
@@ -138,7 +150,7 @@ class SimulationBoard (pieces: MutableList<Piece>, dottedPiece: Piece, opponentD
 
         return move!!*/
 
-        val allPossibleMoves: List<Node> = root.childNodes.filter { child ->
+        val allPossibleMoves: List<Node> = node.childNodes.filter { child ->
             child.weight == weight
         }
 

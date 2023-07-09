@@ -4,6 +4,7 @@ import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.view.Board
+import de.fherfurt.invers.view.SimulationBoard
 
 /**
  * Class representing a Node in the Min-Max-Tree
@@ -62,8 +63,19 @@ class Node(val moves: MutableList<Move>) {
      */
     fun evaluateBoard(ownPiece: Piece, opponentPiece: Piece) : Int {
         val scenarioBoard = Board.applyMovesOnCopy(Game.board(), this.moves)
-        val ownScore = Board.countPieces(scenarioBoard, ownPiece)
-        val opponentScore = Board.countPieces(scenarioBoard, opponentPiece)
+        //val ownScore = Board.countPieces(scenarioBoard, ownPiece)
+        //val opponentScore = Board.countPieces(scenarioBoard, opponentPiece)
+        var ownScore: Int
+        var opponentScore: Int
+        if(ownPiece == Piece.RED || ownPiece == Piece.RED_DOT) {
+            ownScore = SimulationBoard.getScoreWithStrategy(scenarioBoard, Piece.RED_DOT, Piece.RED_DOT)
+            opponentScore = SimulationBoard.getScoreWithStrategy(scenarioBoard, Piece.YELLOW, Piece.YELLOW_DOT)
+        }
+        else {
+            ownScore = SimulationBoard.getScoreWithStrategy(scenarioBoard, Piece.YELLOW, Piece.YELLOW_DOT)
+            opponentScore = SimulationBoard.getScoreWithStrategy(scenarioBoard, Piece.RED, Piece.RED_DOT)
+        }
+
 
         return ownScore - opponentScore
     }
