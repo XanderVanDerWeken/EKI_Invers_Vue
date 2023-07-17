@@ -70,6 +70,12 @@ class Board {
             return copyList
         }
 
+        fun applyMoveOnCopy(pieces: List<Piece>, move: Move) : MutableList<Piece> {
+            val copyList = pieces.toMutableList()
+            applyMove(copyList, move)
+            return copyList
+        }
+
         /**
          * Method to get all Legal Moves
          *
