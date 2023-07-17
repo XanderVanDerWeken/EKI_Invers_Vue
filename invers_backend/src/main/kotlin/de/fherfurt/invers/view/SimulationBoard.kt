@@ -2,6 +2,7 @@ package de.fherfurt.invers.view
 
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.Player
 
 class SimulationBoard (
     private val config: SimulationConfig,
@@ -47,10 +48,7 @@ class SimulationBoard (
                 )
             }
             else {
-                SimulationBoard(
-                    config = config,
-                    pieces = pieces
-                )
+                this
             }
         }
 
@@ -58,7 +56,33 @@ class SimulationBoard (
         return simulationBoards
     }
 
-    fun evaluateBoard() : Int {
-        return -1
+    // TODO: Fix Player Seperation
+    fun evaluateBoard( isMaximizing: Boolean ) : Int {
+        val (playerOneScore, playerTwoScore) = countPiecesWithWeightForPlayer(
+            isMaximizing = isMaximizing,
+            ownPlayer = config.player1,
+            oppPlayer = config.player2
+        )
+
+        val totalScore = playerOneScore - playerTwoScore
+
+        return totalScore
+    }
+
+    private fun countPiecesWithWeightForPlayer(isMaximizing: Boolean, ownPlayer: Player, oppPlayer: Player): Pair<Int, Int> {
+        var normalPieces: Int = 0
+        var dottedPieces: Int = 0
+
+        for( piece in pieces ) {
+            when(piece) {
+                ownPlayer.piece -> normalPieces += config.weightNormalPiece
+                ownPlayer.dottedPiece -> dottedPieces += config.weightDottedPiece
+                oppPlayer.piece -> normalPieces -= config.weightNormalPiece
+                oppPlayer.dottedPiece -> normalPieces -= config.weightDottedPiece
+                else -> 0
+            }
+        }
+
+        return if(isMaximizing) Pair(normalPieces, dottedPieces) else Pair(dottedPieces, normalPieces)
     }
 }
