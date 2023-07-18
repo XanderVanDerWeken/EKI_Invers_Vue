@@ -36,13 +36,13 @@ object Game {
      * Returns the score of Player 1
      */
     val scorePlayer1
-        get() = board.getPlayerScore( player1 )
+        get() = board.countPlayerPieces( player1 )
 
     /**
      * Returns the score of Player 2
      */
     val scorePlayer2
-        get() = board.getPlayerScore( player2 )
+        get() = board.countPlayerPieces( player2 )
 
     val piecesInHandPlayer1
         get() = 19 - board.countPlayerPieces(player1)
