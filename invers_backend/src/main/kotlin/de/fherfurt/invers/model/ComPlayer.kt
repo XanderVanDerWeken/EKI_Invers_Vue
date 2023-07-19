@@ -2,7 +2,6 @@ package de.fherfurt.invers.model
 
 import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Piece
-import de.fherfurt.invers.view.Board
 import de.fherfurt.invers.view.ComplayerBoard
 import de.fherfurt.invers.view.Node
 
@@ -121,6 +120,10 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      * @return move with given weight.
      */
     private fun getMoveWithWeight(node: Node, weight: Int) : Move {
-
+        val firstChilds = node.childNodes
+        val bestNode = firstChilds.first { node ->
+            node.weight == weight
+        }
+        return Move( bestNode.moveInstruction!!, dottedPiece )
     }
 }

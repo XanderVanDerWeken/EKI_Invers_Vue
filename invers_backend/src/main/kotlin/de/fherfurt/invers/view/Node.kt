@@ -9,6 +9,7 @@ class Node (
 ) {
     val board = ComplayerBoard( currentBoard.pieces.toMutableList() )
     val childNodes = mutableListOf<Node>()
+    var moveInstruction: MoveInstruction? = null
     var weight = 0
 
     fun getAllLegalFromNode( opponentPiece: Piece ) : List<MoveInstruction> {
@@ -16,8 +17,12 @@ class Node (
     }
 
     fun createChildAndAdd( moveInstruction: MoveInstruction, ownPieces: Pair<Piece, Piece> ): Node {
+        // Creating Child
         val childNode = Node( this.board )
+        childNode.moveInstruction = moveInstruction
+        // Executing Move
         board.executeMove( Move(moveInstruction, ownPieces.second), ownPieces )
+        // Add child to Parent
         this.childNodes.add( childNode )
         return childNode
     }
