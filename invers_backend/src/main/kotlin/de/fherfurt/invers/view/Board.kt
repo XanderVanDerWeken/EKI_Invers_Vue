@@ -3,14 +3,12 @@ package de.fherfurt.invers.view
 import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.Move
+import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 
-class Board {
-    val pieces: MutableList<Piece>
+open class Board (val pieces: MutableList<Piece>) {
 
-    init {
-        this.pieces = initializePieces()
-    }
+    constructor() : this( initializePieces() )
 
     companion object BoardUtils {
         private const val offsetInArray: Int = 11
@@ -49,6 +47,37 @@ class Board {
         private fun rowAndColToIndex(row: Int, col: Int): Int {
             return row * 10 + col + offsetInArray
         }
+
+        /**
+         * Method to initialize the board
+         *
+         * @return List of Pieces
+         */
+        private fun initializePieces(): MutableList<Piece> {
+            val pieces = mutableListOf<Piece>()
+            for(i in 0..99 ) {
+                // Border Above & Below
+                if(i < 20 || i >= 80) {
+                    pieces.add(Piece.BORDER)
+                }
+                else {
+                    val col = i % 10
+                    val row = (i / 10).toInt()
+                    // Border Left and Right
+                    if(col == 0 ||col == 1 || col == 8 || col == 9) {
+                        pieces.add( Piece.BORDER )
+                    }
+                    else { // Inner Fields
+                        if((col + row) % 2 == 0) {
+                            pieces.add( Piece.RED )
+                        } else {
+                            pieces.add( Piece.YELLOW )
+                        }
+                    }
+                }
+            }
+            return pieces
+        }
     }
 
     /**
@@ -81,27 +110,16 @@ class Board {
      * @param opponentDottedPiece opponentDottedPiece
      * @return Map of Direction and lists of possible indexes
      */
-    fun getAllLegal(opponentDottedPiece: Piece): Map<Direction, List<Int>> {
-        // Create Lists
-        val result = HashMap<Direction, List<Int>>()
-        val upList = mutableListOf<Int>()
-        val downList = mutableListOf<Int>()
-        val leftList = mutableListOf<Int>()
-        val rightList = mutableListOf<Int>()
+    fun getAllLegal(opponentDottedPiece: Piece) : List<MoveInstruction> {
+        val result = mutableListOf<MoveInstruction>()
 
-        // Check for all directions, all cols and rows
-        for( i in 1..6 ) {
-            if( isLegal( i, Direction.UP,    opponentDottedPiece ) ) upList.add( i )
-            if( isLegal( i, Direction.DOWN,  opponentDottedPiece ) ) downList.add( i )
-            if( isLegal( i, Direction.LEFT,  opponentDottedPiece ) ) leftList.add( i )
-            if( isLegal( i, Direction.RIGHT, opponentDottedPiece ) ) rightList.add( i )
+        for( i in 1..6) {
+            if( isLegal( i, Direction.UP,    opponentDottedPiece ) ) result.add( MoveInstruction( Direction.UP, i ) )
+            if( isLegal( i, Direction.DOWN,  opponentDottedPiece ) ) result.add( MoveInstruction( Direction.DOWN, i ) )
+            if( isLegal( i, Direction.LEFT,  opponentDottedPiece ) ) result.add( MoveInstruction( Direction.LEFT, i ) )
+            if( isLegal( i, Direction.RIGHT, opponentDottedPiece ) ) result.add( MoveInstruction( Direction.RIGHT, i ) )
         }
 
-        // Add everything to result and return
-        result[Direction.UP] =  upList
-        result[Direction.DOWN] = downList
-        result[Direction.LEFT] =  leftList
-        result[Direction.RIGHT] = rightList
         return result
     }
 
@@ -145,40 +163,9 @@ class Board {
      * @param piecesToCount piecesToCount as vararg parameter
      * @return amount of pieces
      */
-    private fun countPieces(vararg piecesToCount: Piece) : Int {
+    protected fun countPieces(vararg piecesToCount: Piece) : Int {
         return pieces.count { piece ->
             piecesToCount.contains( piece )
         }
-    }
-
-    /**
-     * Method to initialize the board
-     *
-     * @return List of Pieces
-     */
-    private fun initializePieces(): MutableList<Piece> {
-        val pieces = mutableListOf<Piece>()
-        for(i in 0..99 ) {
-            // Border Above & Below
-            if(i < 20 || i >= 80) {
-                pieces.add(Piece.BORDER)
-            }
-            else {
-                val col = i % 10
-                val row = (i / 10).toInt()
-                // Border Left and Right
-                if(col == 0 ||col == 1 || col == 8 || col == 9) {
-                    pieces.add( Piece.BORDER )
-                }
-                else { // Inner Fields
-                    if((col + row) % 2 == 0) {
-                        pieces.add( Piece.RED )
-                    } else {
-                        pieces.add( Piece.YELLOW )
-                    }
-                }
-            }
-        }
-        return pieces
     }
 }

@@ -49,9 +49,9 @@ object PlayerRouter {
                 call.respond(HttpStatusCode.OK, Game.isLegalMove( move ))
             }
             get("/possibleMoves") {
-                val result = mutableListOf<Moves>()
-                Game.getLegalMoves().map { entry ->
-                    result.add(Moves(entry.key, entry.value))
+                val groupedMap = Game.getLegalMoves().groupBy(MoveInstruction::direction) { it.index }
+                val result = groupedMap.map{ (direction, indexes) ->
+                    Moves(direction, indexes)
                 }
                 call.respond(HttpStatusCode.OK, result)
             }

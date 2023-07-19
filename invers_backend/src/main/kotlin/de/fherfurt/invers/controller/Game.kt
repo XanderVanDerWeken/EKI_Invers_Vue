@@ -119,7 +119,7 @@ object Game {
      *
      * @return Map of the directions and List of legal indexes
      */
-    fun getLegalMoves() : Map<Direction, List<Int>> {
+    fun getLegalMoves() : List<MoveInstruction> {
         return this.board.getAllLegal(opponentDottedPiece)
     }
 
