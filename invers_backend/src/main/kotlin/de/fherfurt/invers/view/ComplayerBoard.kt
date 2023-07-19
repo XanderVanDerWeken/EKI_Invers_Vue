@@ -6,22 +6,22 @@ import de.fherfurt.invers.model.Player
 
 class ComplayerBoard(pieces: MutableList<Piece>) : Board(pieces) {
 
-    fun executeMove(move: Move, player: Player) {
-        if( countPlayerPieces( player ) > 18 ) {
+    fun executeMove(move: Move, ownPieces: Pair<Piece, Piece>) {
+        if( countPieces(ownPieces.first, ownPieces.second) > 18 ) {
             applyMove( move )
         }
     }
 
-    fun evaluateBoard(posPlayer: Player, negPlayer: Player) : Int {
+    fun evaluateBoard(posPlayerPieces: Pair<Piece, Piece>, negPlayerPieces: Pair<Piece, Piece>) : Int {
         var normalPieces: Int = 0
         var dottedPieces: Int = 0
 
         for( piece in pieces ) {
             when(piece) {
-                posPlayer.piece -> normalPieces += 1
-                posPlayer.dottedPiece -> dottedPieces += 5
-                negPlayer.piece -> normalPieces -= 1
-                negPlayer.dottedPiece -> normalPieces -= 5
+                posPlayerPieces.first -> normalPieces += 1
+                posPlayerPieces.second -> dottedPieces += 5
+                negPlayerPieces.first -> normalPieces -= 1
+                negPlayerPieces.second -> normalPieces -= 5
                 else -> {}
             }
         }
