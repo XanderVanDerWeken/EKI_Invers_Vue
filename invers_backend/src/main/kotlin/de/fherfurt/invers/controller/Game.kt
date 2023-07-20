@@ -1,6 +1,5 @@
 package de.fherfurt.invers.controller
 
-import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.ComPlayer
 import de.fherfurt.invers.model.MoveInstruction

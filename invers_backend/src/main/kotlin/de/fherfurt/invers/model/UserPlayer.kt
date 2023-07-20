@@ -1,6 +1,5 @@
 package de.fherfurt.invers.model
 
-import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Piece
 
 /**
