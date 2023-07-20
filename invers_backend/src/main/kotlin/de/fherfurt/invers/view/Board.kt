@@ -6,6 +6,12 @@ import de.fherfurt.invers.model.Move
 import de.fherfurt.invers.model.MoveInstruction
 import de.fherfurt.invers.model.Player
 
+/**
+ * Class representing a Board.
+ * It is holding the list and performing all operations on the board.
+ *
+ * @author Xander Van der Weken
+ */
 open class Board (val pieces: MutableList<Piece>) {
 
     constructor() : this( initializePieces() )
