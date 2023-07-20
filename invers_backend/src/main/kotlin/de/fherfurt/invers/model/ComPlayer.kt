@@ -37,7 +37,7 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
     override fun makeMove() : Move {
         // Build Game tree
         val root = Node( ComplayerBoard( Game.board() ) )
-        buildGameTree(root, ComPlayer.maxDepth, true)
+        buildGameTree(root, maxDepth)
 
         // Starting Point for calculating Weights
         calculateWeights(root, true)
@@ -54,9 +54,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      *
      * @param node node to build on
      * @param depth depth that is remaining to build
-     * @param isRootNode true if node is root
      */
-    private fun buildGameTree(node: Node, depth: Int, isRootNode: Boolean = false) {
+    private fun buildGameTree(node: Node, depth: Int) {
         // Cancel Criteria
         if (depth <= 0) {
             return
@@ -92,7 +91,7 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
             return
         }
 
-        val children = node.childNodes
+        val children = node.getChildNodes()
 
         if(maximizingPlayer) { // Maximize the weight
             var maxWeight = Int.MIN_VALUE
@@ -120,9 +119,9 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      * @return move with given weight.
      */
     private fun getMoveWithWeight(node: Node, weight: Int) : Move {
-        val firstChilds = node.childNodes
-        val bestNode = firstChilds.first { node ->
-            node.weight == weight
+        val firstChilds = node.getChildNodes()
+        val bestNode = firstChilds.first { childNode ->
+            childNode.weight == weight
         }
         return Move( bestNode.moveInstruction!!, dottedPiece )
     }

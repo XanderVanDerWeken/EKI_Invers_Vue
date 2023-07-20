@@ -7,8 +7,8 @@ import de.fherfurt.invers.model.MoveInstruction
 class Node (
     currentBoard: ComplayerBoard
 ) {
-    val board = ComplayerBoard( currentBoard.pieces.toMutableList() )
-    val childNodes = mutableListOf<Node>()
+    private val board = ComplayerBoard( currentBoard.pieces.toMutableList() )
+    private val childNodes = mutableListOf<Node>()
     var moveInstruction: MoveInstruction? = null
     var weight = 0
 
@@ -34,4 +34,6 @@ class Node (
     fun isTerminal(): Boolean {
         return board.isGameOver()
     }
+
+    fun getChildNodes() : List<Node> = this.childNodes
 }
