@@ -1,6 +1,5 @@
 package de.fherfurt.invers.controller
 
-import de.fherfurt.invers.core.Direction
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.model.ComPlayer
 import de.fherfurt.invers.model.MoveInstruction
@@ -36,18 +35,18 @@ object Game {
      * Returns the score of Player 1
      */
     val scorePlayer1
-        get() = board.getPlayerScore( player1 )
+        get() = board.countPlayerPieces( player1 )
 
     /**
      * Returns the score of Player 2
      */
     val scorePlayer2
-        get() = board.getPlayerScore( player2 )
+        get() = board.countPlayerPieces( player2 )
 
     val piecesInHandPlayer1
-        get() = player1.getAmountOfPieces()
+        get() = 19 - board.countPlayerPieces(player1)
     val piecesInHandPlayer2
-        get() = player2.getAmountOfPieces()
+        get() = 19 - board.countPlayerPieces(player2)
 
     val kindPlayer1
         get() = player1.playerKind
@@ -76,18 +75,9 @@ object Game {
     suspend fun playGame() {
         while(!isGameOver()) {
             // Let Player make Move
-            if( activePlayer.hasPiecesInHand() ) {
+            if(board.countPlayerPieces( activePlayer ) <= 18) {
                 val newMove = activePlayer.makeMove()
-                val wouldGain = this.wouldGainPiece(newMove.instructions, activePlayer)
-                if (wouldGain) {
-                    //activePlayer.usePiece()
-                    board.applyMove(newMove)
-                    //activePlayer.gainPiece()
-                } else {
-                    activePlayer.usePiece()
-                    board.applyMove(newMove)
-                    opponentPlayer.gainPiece()
-                }
+                board.applyMove(newMove)
             }
 
             // Switch Player
@@ -128,7 +118,7 @@ object Game {
      *
      * @return Map of the directions and List of legal indexes
      */
-    fun getLegalMoves() : Map<Direction, List<Int>> {
+    fun getLegalMoves() : List<MoveInstruction> {
         return this.board.getAllLegal(opponentDottedPiece)
     }
 
@@ -140,17 +130,6 @@ object Game {
      */
     fun isLegalMove( move: MoveInstruction ) : Boolean {
         return this.board.isLegal(move.index, move.direction, opponentDottedPiece)
-    }
-
-    /**
-     * Method to check if a Player would gain a Piece in a Move
-     *
-     * @param move move to check
-     * @param player player to check fo
-     * @return true if Player would gain a piece on that move, else false
-     */
-    private fun wouldGainPiece(move: MoveInstruction, player: Player) : Boolean {
-        return this.board.wouldGainPiece( move, player )
     }
 
     /**

@@ -2,7 +2,8 @@ package de.fherfurt.invers.model
 
 import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Piece
-import de.fherfurt.invers.view.Board
+import de.fherfurt.invers.view.ComplayerBoard
+import de.fherfurt.invers.view.Node
 
 /**
  * Player using an AI to play
@@ -12,10 +13,14 @@ import de.fherfurt.invers.view.Board
  */
 class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, aiPlayerKind) {
 
-    private val opponentDottedPiece: Piece
+    private val opponentPieces: Pair<Piece, Piece>
         get() =
-            if(dottedPiece == Piece.RED_DOT) Piece.YELLOW_DOT
-            else Piece.YELLOW_DOT
+            if(dottedPiece == Piece.RED_DOT) Pair(Piece.YELLOW, Piece.YELLOW_DOT)
+            else Pair(Piece.RED, Piece.RED_DOT)
+    private val ownPieces: Pair<Piece, Piece>
+        get() =
+            if(dottedPiece == Piece.RED_DOT) Pair(Piece.RED, Piece.RED_DOT)
+            else Pair(Piece.YELLOW, Piece.YELLOW_DOT)
 
     companion object {
         const val aiPlayerKind = "AI Player"
@@ -31,8 +36,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      */
     override fun makeMove() : Move {
         // Build Game tree
-        val root = Node()
-        buildGameTree(root, maxDepth, true)
+        val root = Node( ComplayerBoard( Game.board() ) )
+        buildGameTree(root, maxDepth)
 
         // Starting Point for calculating Weights
         calculateWeights(root, true)
@@ -49,33 +54,27 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      *
      * @param node node to build on
      * @param depth depth that is remaining to build
-     * @param isRootNode true if node is root
      */
-    private fun buildGameTree(node: Node, depth: Int, isRootNode: Boolean) {
+    private fun buildGameTree(node: Node, depth: Int) {
         // Cancel Criteria
         if (depth <= 0) {
             return
         }
 
-        // Building Board for Scenario
-        val scenarioBoard: MutableList<Piece> = if (isRootNode) Game.board()
-            else Board.applyMovesOnCopy(Game.board(), node.moves)
+        // Variable to set for the current step
+        val situationOpponentDottedPiece: Piece =
+            if( depth % 2 != 0 ) opponentPieces.second
+            else ownPieces.second
 
-        // Get next piece for Scenario
-        val scenarioPiece: Piece = if (depth % 2 != 0) dottedPiece
-            else opponentDottedPiece
+        val situationOwnPieces: Pair<Piece, Piece> =
+            if( depth % 2 != 0 ) ownPieces
+            else opponentPieces
 
-        // Get Possible moves
-        val possibleMoves = Board.getAllLegal(scenarioBoard, opponentDottedPiece)
-
-        // Add Nodes child nodes to node, and calling recursion
-        possibleMoves.forEach { entry ->
-            entry.value.forEach { index ->
-                val childNode = Node(node.moves)
-                    .addMove(entry.key, index, scenarioPiece)
-                node.addChild(childNode)
-                buildGameTree(childNode, depth - 1, false)
-            }
+        // Get possible Moves and adding the child nodes
+        val possibleMoves = node.getAllLegalFromNode( situationOpponentDottedPiece )
+        possibleMoves.forEach { moveInstruction ->
+            val childNode = node.createChildAndAdd( moveInstruction, situationOwnPieces )
+            buildGameTree( childNode, depth - 1 )
         }
     }
 
@@ -88,11 +87,11 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      */
     private fun calculateWeights(node: Node, maximizingPlayer: Boolean) {
         if(node.isTerminal()) {
-            node.weight = node.evaluateBoard(this.dottedPiece, opponentDottedPiece)
+            node.weight = node.evaluateBoard(ownPieces, opponentPieces)
             return
         }
 
-        val children = node.childNodes
+        val children = node.getChildNodes()
 
         if(maximizingPlayer) { // Maximize the weight
             var maxWeight = Int.MIN_VALUE
@@ -101,8 +100,6 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
                 calculateWeights(child, false)
                 maxWeight = maxOf(maxWeight, child.weight)
             }
-
-            node.weight = maxWeight
         }
         else { // Minimize the weight
             var minWeight = Int.MAX_VALUE
@@ -111,8 +108,6 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
                 calculateWeights(child, true)
                 minWeight = minOf(minWeight, child.weight)
             }
-
-            node.weight = minWeight
         }
     }
 
@@ -123,27 +118,11 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      * @param weight weight to look for
      * @return move with given weight.
      */
-    private fun getMoveWithWeight(root: Node, weight: Int) : Move {
-        /*var move: Move? = null
-
-        node.childNodes.forEach { child ->
-            if (child.weight == weight) {
-                move = child.moves[0]
-            }
+    private fun getMoveWithWeight(node: Node, weight: Int) : Move {
+        val firstChilds = node.getChildNodes()
+        val bestNode = firstChilds.first { childNode ->
+            childNode.weight == weight
         }
-
-        return move!!*/
-
-        val allPossibleMoves: List<Node> = root.childNodes.filter { child ->
-            child.weight == weight
-        }
-
-        val bestNode = if(allPossibleMoves.size > 1) {
-            allPossibleMoves.random()
-        }
-        else {
-            allPossibleMoves[0]
-        }
-        return bestNode.moves[0]
+        return Move( bestNode.moveInstruction!!, dottedPiece )
     }
 }
