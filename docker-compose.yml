@@ -4,6 +4,8 @@ services:
   server:
     build: ./invers_backend
     container_name: "Invers_Server"
+    volumes:
+      - ./logs:/app/logs
     ports:
       - "8080:8080"
 
