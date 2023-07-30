@@ -49,10 +49,6 @@
 </script>
 
 <style scoped>
-* {
-  outline: dotted red;
-}
-
 #main {
   display: flex;
   flex-direction: row;
