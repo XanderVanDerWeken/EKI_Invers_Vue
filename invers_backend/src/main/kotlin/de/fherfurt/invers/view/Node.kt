@@ -71,4 +71,38 @@ class Node (
      * @return list of Child Nodes
      */
     fun getChildNodes() : List<Node> = this.childNodes
+
+    override fun toString(): String {
+        return toJsonString(this)
+    }
+
+    /**
+     * Method to take a node and transform it to a json String
+     *
+     * @param node node to serialize to json
+     * @return json string
+     */
+    private fun toJsonString(node: Node): String {
+        val json = StringBuilder()
+
+        json.append("{")
+
+        json.append("\"moveInstruction\": \"${node.moveInstruction}\",")
+        json.append("\"weight\": ${node.weight},")
+
+        if( node.childNodes.isNotEmpty() ) {
+            json.append("\"childNodes\": [")
+            node.childNodes.forEachIndexed { index, child ->
+                json.append(toJsonString( child ))
+                if( index < node.childNodes.size - 1 ) {
+                    json.append(",")
+                }
+            }
+            json.append("]")
+        }
+
+        json.append("}")
+
+        return json.toString()
+    }
 }
