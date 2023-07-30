@@ -1,5 +1,6 @@
 package de.fherfurt.invers.model
 
+import de.fherfurt.invers.controller.FileController
 import de.fherfurt.invers.controller.Game
 import de.fherfurt.invers.core.Piece
 import de.fherfurt.invers.view.ComplayerBoard
@@ -12,6 +13,8 @@ import de.fherfurt.invers.view.Node
  * @author Xander Van der Weken
  */
 class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, aiPlayerKind) {
+
+    private val fileController = FileController()
 
     private val opponentPieces: Pair<Piece, Piece>
         get() =
@@ -43,6 +46,8 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
         calculateWeights(root, true)
 
         val rootWeight = root.weight
+
+        fileController.saveGraph( root )
 
         // Get Move From Child with weight
         return getMoveWithWeight(root, rootWeight)

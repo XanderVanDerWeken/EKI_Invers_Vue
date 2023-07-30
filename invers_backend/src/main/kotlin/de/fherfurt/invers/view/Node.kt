@@ -88,10 +88,10 @@ class Node (
         json.append("{")
 
         json.append("\"moveInstruction\": \"${node.moveInstruction}\",")
-        json.append("\"weight\": ${node.weight},")
+        json.append("\"weight\": ${node.weight}")
 
         if( node.childNodes.isNotEmpty() ) {
-            json.append("\"childNodes\": [")
+            json.append(",\"childNodes\": [")
             node.childNodes.forEachIndexed { index, child ->
                 json.append(toJsonString( child ))
                 if( index < node.childNodes.size - 1 ) {
