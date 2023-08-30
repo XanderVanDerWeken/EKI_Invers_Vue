@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Game</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../index.html">
+                    <span>invers</span>
+            </a>
+    </div>
+    <div>
+    </div>
+    <div class="pull-right d-flex">
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="invers/JVM">JVM</button>
+        </div>
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
+        <div id="sideMenu"></div>
+    </div>
+    <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="invers::de.fherfurt.invers.controller/Game///PointingToDeclaration//-1318092121">
+  <div class="breadcrumbs"><a href="../../../index.html">invers</a><span class="delimiter">/</span><a href="../index.html">de.fherfurt.invers.controller</a><span class="delimiter">/</span><span class="current">Game</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Game</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Game</a></div><p class="paragraph">Controller representing the Game. It is holding on the board and the players, and representing the Game Loop</p><span class="kdoc-tag"><h4 class="">Author</h4><p class="paragraph">Xander Van der Weken</p></span></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,FUNCTION,PROPERTY">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="2031891417%2FFunctions%2F-1318092121" anchor-label="board" id="2031891417%2FFunctions%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="board.html"><span><span>board</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031891417%2FFunctions%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="board.html"><span class="token function">board</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../de.fherfurt.invers.core/-piece/index.html">Piece</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Method to return the List of pieces</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="76414816%2FFunctions%2F-1318092121" anchor-label="getLegalMoves" id="76414816%2FFunctions%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-legal-moves.html"><span>get</span><wbr></wbr><span>Legal</span><wbr></wbr><span><span>Moves</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="76414816%2FFunctions%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-legal-moves.html"><span class="token function">getLegalMoves</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../de.fherfurt.invers.model/-move-instruction/index.html">MoveInstruction</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Method to get all legal moves</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="510724063%2FFunctions%2F-1318092121" anchor-label="isLegalMove" id="510724063%2FFunctions%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-legal-move.html"><span>is</span><wbr></wbr><span>Legal</span><wbr></wbr><span><span>Move</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="510724063%2FFunctions%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="is-legal-move.html"><span class="token function">isLegalMove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">move<span class="token operator">: </span><a href="../../de.fherfurt.invers.model/-move-instruction/index.html">MoveInstruction</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Method to check if a move is legal</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="385015221%2FFunctions%2F-1318092121" anchor-label="playGame" id="385015221%2FFunctions%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="play-game.html"><span>play</span><wbr></wbr><span><span>Game</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="385015221%2FFunctions%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="play-game.html"><span class="token function">playGame</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Method representing the Game Loop</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-90070588%2FFunctions%2F-1318092121" anchor-label="resetBoard" id="-90070588%2FFunctions%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reset-board.html"><span>reset</span><wbr></wbr><span><span>Board</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-90070588%2FFunctions%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="reset-board.html"><span class="token function">resetBoard</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Method to reset the board</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1595149932%2FProperties%2F-1318092121" anchor-label="activePlayer" id="-1595149932%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="active-player.html"><span>active</span><wbr></wbr><span><span>Player</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1595149932%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="active-player.html">activePlayer</a><span class="token operator">: </span><a href="../../de.fherfurt.invers.model/-player/index.html">Player</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="301582670%2FProperties%2F-1318092121" anchor-label="colorPlayer1" id="301582670%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="color-player1.html"><span>color</span><wbr></wbr><span><span>Player1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="301582670%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="color-player1.html">colorPlayer1</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="332602477%2FProperties%2F-1318092121" anchor-label="colorPlayer2" id="332602477%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="color-player2.html"><span>color</span><wbr></wbr><span><span>Player2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="332602477%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="color-player2.html">colorPlayer2</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-73936507%2FProperties%2F-1318092121" anchor-label="currentPlayer" id="-73936507%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="current-player.html"><span>current</span><wbr></wbr><span><span>Player</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-73936507%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="current-player.html">currentPlayer</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="6137539%2FProperties%2F-1318092121" anchor-label="kindPlayer1" id="6137539%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="kind-player1.html"><span>kind</span><wbr></wbr><span><span>Player1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="6137539%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="kind-player1.html">kindPlayer1</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="37157346%2FProperties%2F-1318092121" anchor-label="kindPlayer2" id="37157346%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="kind-player2.html"><span>kind</span><wbr></wbr><span><span>Player2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="37157346%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="kind-player2.html">kindPlayer2</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1160748253%2FProperties%2F-1318092121" anchor-label="opponentPlayer" id="1160748253%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="opponent-player.html"><span>opponent</span><wbr></wbr><span><span>Player</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1160748253%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">var </span><a href="opponent-player.html">opponentPlayer</a><span class="token operator">: </span><a href="../../de.fherfurt.invers.model/-player/index.html">Player</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-752430072%2FProperties%2F-1318092121" anchor-label="piecesInHandPlayer1" id="-752430072%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pieces-in-hand-player1.html"><span>pieces</span><wbr></wbr><span>In</span><wbr></wbr><span>Hand</span><wbr></wbr><span><span>Player1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-752430072%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="pieces-in-hand-player1.html">piecesInHandPlayer1</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-721410265%2FProperties%2F-1318092121" anchor-label="piecesInHandPlayer2" id="-721410265%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pieces-in-hand-player2.html"><span>pieces</span><wbr></wbr><span>In</span><wbr></wbr><span>Hand</span><wbr></wbr><span><span>Player2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-721410265%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="pieces-in-hand-player2.html">piecesInHandPlayer2</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1635081341%2FProperties%2F-1318092121" anchor-label="scorePlayer1" id="1635081341%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="score-player1.html"><span>score</span><wbr></wbr><span><span>Player1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1635081341%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="score-player1.html">scorePlayer1</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the score of Player 1</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1666101148%2FProperties%2F-1318092121" anchor-label="scorePlayer2" id="1666101148%2FProperties%2F-1318092121" data-filterable-set="invers/JVM"></a>
+          <div class="table-row" data-filterable-current="invers/JVM" data-filterable-set="invers/JVM">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="score-player2.html"><span>score</span><wbr></wbr><span><span>Player2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1666101148%2FProperties%2F-1318092121"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="invers/JVM"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="score-player2.html">scorePlayer2</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">Returns the score of Player 2</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
+</html>
