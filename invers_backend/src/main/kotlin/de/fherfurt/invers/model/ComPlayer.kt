@@ -125,9 +125,12 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      */
     private fun getMoveWithWeight(node: Node, weight: Int) : Move {
         val firstChilds = node.getChildNodes()
-        val bestNode = firstChilds.first { childNode ->
+        /*val bestNode = firstChilds.first { childNode ->
             childNode.weight == weight
-        }
+        }*/
+        val bestNode = firstChilds.filter { childNode ->
+            childNode.weight == weight
+        }.random()
         return Move( bestNode.moveInstruction!!, dottedPiece )
     }
 }
