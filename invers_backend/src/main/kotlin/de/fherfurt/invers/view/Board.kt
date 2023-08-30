@@ -17,7 +17,7 @@ open class Board (val pieces: MutableList<Piece>) {
     constructor() : this( initializePieces() )
 
     companion object BoardUtils {
-        private const val offsetInArray: Int = 11
+        private const val OFFSET_IN_ARRAY: Int = 11
 
         /**
          * Helper Method to get the last index in direction
@@ -51,7 +51,7 @@ open class Board (val pieces: MutableList<Piece>) {
          * @return index
          */
         private fun rowAndColToIndex(row: Int, col: Int): Int {
-            return row * 10 + col + offsetInArray
+            return row * 10 + col + OFFSET_IN_ARRAY
         }
 
         /**
@@ -68,7 +68,7 @@ open class Board (val pieces: MutableList<Piece>) {
                 }
                 else {
                     val col = i % 10
-                    val row = (i / 10).toInt()
+                    val row = (i / 10)
                     // Border Left and Right
                     if(col == 0 ||col == 1 || col == 8 || col == 9) {
                         pieces.add( Piece.BORDER )

@@ -17,7 +17,7 @@ object Game {
     private val player1: Player
     private val player2: Player
     var activePlayer: Player
-    var opponentPlayer: Player
+    private var opponentPlayer: Player
     private var board: Board
     var currentPlayer: Int
         private set

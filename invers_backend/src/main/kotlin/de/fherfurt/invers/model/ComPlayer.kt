@@ -27,7 +27,7 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
 
     companion object {
         const val aiPlayerKind = "AI Player"
-        const val maxDepth = 3
+        const val MAX_DEPTH = 3
     }
 
     /**
@@ -40,7 +40,7 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
     override fun makeMove() : Move {
         // Build Game tree
         val root = Node( ComplayerBoard( Game.board() ) )
-        buildGameTree(root, maxDepth)
+        buildGameTree(root, MAX_DEPTH)
 
         // Starting Point for calculating Weights
         calculateWeights(root, true)
@@ -125,9 +125,6 @@ class ComPlayer(piece: Piece, dottedPiece: Piece) : Player(piece, dottedPiece, a
      */
     private fun getMoveWithWeight(node: Node, weight: Int) : Move {
         val firstChilds = node.getChildNodes()
-        /*val bestNode = firstChilds.first { childNode ->
-            childNode.weight == weight
-        }*/
         val bestNode = firstChilds.filter { childNode ->
             childNode.weight == weight
         }.random()
