@@ -52,9 +52,3 @@ docker compose up
 ```
 
 2. Wenn das Netzwerk läuft, im Browser folgende [localhost:8081](http://localhost:8081) aufrufen.
-
-## Bekannte Bugs
-- ...
-
-## Dokumentation
-Gesamte Dokumentation is in der [GitHub Wiki](https://github.com/XanderVanDerWeken/EKI_Invers_Vue/wiki) zufinden
